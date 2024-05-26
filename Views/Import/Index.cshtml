@@ -1,16 +1,36 @@
 ﻿@{
-    ViewBag.Title = "Import Excel";
+    ViewBag.Title = "Import Data";
 }
 
-<h2>Import Excel File</h2>
+<h2>Import Data</h2>
 
 @using (Html.BeginForm("Index", "Import", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    <input type="file" name="excelFile" id="excelFile" />
-    <input type="submit" value="Upload" />
+    <div class="row">
+        <div class="col-md-8">
+            <div>
+                <label for="excelFile">Chọn file Excel:</label>
+                <input type="file" name="excelFile" id="excelFile" class="inputfile" />
+            </div>
+            <div>
+                <label for="dataType">Chọn loại file:</label>
+                <select name="dataType" id="dataType" style="width: 250px; background: #808080; color:white">
+                    <option value="Vung">Vùng</option>
+                    <option value="Tinh">Tỉnh</option>
+                    <option value="Huyen">Huyện</option>
+                    <option value="Xa">Xã</option>
+                </select>
+            </div>
+            <div>
+                <button type="submit">Import</button>
+            </div>
+        </div>
+    </div>
 }
 
 @if (ViewBag.Message != null)
 {
-    <p>@ViewBag.Message</p>
+    <div>
+        <p>@ViewBag.Message</p>
+    </div>
 }
