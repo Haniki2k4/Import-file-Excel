@@ -17,6 +17,10 @@ namespace Import_file_Excel.Data
         public string MaTinh { get; set; }
         public string MaHuyen { get; set; }
         public string MaXa { get; set; }
-        public string TenDiaBan { get; set; }
+        public string TenDB { get; set; }
+    
+        public virtual HUYEN HUYEN { get; set; }
+        public virtual TINH TINH { get; set; }
+        public virtual XA XA { get; set; }
     }
 }

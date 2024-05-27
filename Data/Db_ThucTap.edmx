@@ -7,57 +7,255 @@
       <Schema Namespace="Db_ThucTapModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="DIABAN">
           <Key>
-            <PropertyRef Name="TenDiaBan" />
+            <PropertyRef Name="TenDB" />
           </Key>
-          <Property Name="MaTinh" Type="varchar" MaxLength="3" />
-          <Property Name="MaHuyen" Type="varchar" MaxLength="4" />
-          <Property Name="MaXa" Type="varchar" MaxLength="6" Nullable="false" />
-          <Property Name="TenDiaBan" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="MaTinh" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="MaHuyen" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="MaXa" Type="char" MaxLength="6" Nullable="false" />
+          <Property Name="TenDB" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="HUYEN">
           <Key>
             <PropertyRef Name="MaHuyen" />
           </Key>
-          <Property Name="MaHuyen" Type="varchar" MaxLength="4" Nullable="false" />
-          <Property Name="MaTinh" Type="varchar" MaxLength="3" Nullable="false" />
-          <Property Name="TenHuyen" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MaHuyen" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="MaTinh" Type="char" MaxLength="3" />
+          <Property Name="TenHuyen" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
+        <EntityType Name="THANHVIENTRONGHO">
           <Key>
-            <PropertyRef Name="diagram_id" />
+            <PropertyRef Name="MaThanhVien" />
           </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
+          <Property Name="MaHo" Type="char" MaxLength="15" />
+          <Property Name="MaThanhVien" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="STT" Type="char" MaxLength="2" />
+          <Property Name="HoTen" Type="nvarchar" MaxLength="150" />
+          <Property Name="C02" Type="char" MaxLength="2" />
+          <Property Name="C03" Type="char" MaxLength="2" />
+          <Property Name="C04T" Type="char" MaxLength="2" />
+          <Property Name="C04N" Type="char" MaxLength="4" />
+          <Property Name="C05" Type="char" MaxLength="2" />
+          <Property Name="C06A" Type="char" MaxLength="2" />
+          <Property Name="C06B" Type="char" MaxLength="10" />
+          <Property Name="C06C" Type="char" MaxLength="2" />
+          <Property Name="C07" Type="char" MaxLength="2" />
+          <Property Name="C08" Type="char" MaxLength="2" />
+          <Property Name="C09" Type="char" MaxLength="2" />
+          <Property Name="C09A" Type="char" MaxLength="2" />
+          <Property Name="C09B" Type="char" MaxLength="2" />
+          <Property Name="C10" Type="char" MaxLength="2" />
+          <Property Name="C11A" Type="char" MaxLength="2" />
+          <Property Name="C11B" Type="char" MaxLength="2" />
+          <Property Name="C11C" Type="char" MaxLength="2" />
+          <Property Name="C11D" Type="char" MaxLength="2" />
+          <Property Name="C11E" Type="char" MaxLength="2" />
+          <Property Name="C11F" Type="char" MaxLength="2" />
+          <Property Name="C11FK" Type="nvarchar" MaxLength="255" />
+          <Property Name="C12" Type="char" MaxLength="2" />
+          <Property Name="C13" Type="char" MaxLength="2" />
+          <Property Name="C13A" Type="char" MaxLength="2" />
+          <Property Name="C14" Type="char" MaxLength="2" />
+          <Property Name="C15" Type="char" MaxLength="2" />
+          <Property Name="C16A" Type="char" MaxLength="2" />
+          <Property Name="C16B" Type="char" MaxLength="2" />
+          <Property Name="C16C" Type="char" MaxLength="2" />
+          <Property Name="C16D" Type="char" MaxLength="2" />
+          <Property Name="C16E" Type="char" MaxLength="2" />
+          <Property Name="C16F" Type="char" MaxLength="2" />
+          <Property Name="C17" Type="char" MaxLength="2" />
+          <Property Name="C18" Type="char" MaxLength="2" />
+          <Property Name="C19" Type="char" MaxLength="2" />
+          <Property Name="C20A" Type="char" MaxLength="2" />
+          <Property Name="C20B" Type="char" MaxLength="2" />
+          <Property Name="C20C" Type="char" MaxLength="2" />
+          <Property Name="C20D" Type="char" MaxLength="2" />
+          <Property Name="C20E" Type="char" MaxLength="2" />
+          <Property Name="C21A" Type="char" MaxLength="2" />
+          <Property Name="C21B" Type="char" MaxLength="2" />
+          <Property Name="C21C" Type="char" MaxLength="2" />
+          <Property Name="C21D" Type="char" MaxLength="2" />
+          <Property Name="C21E" Type="char" MaxLength="2" />
+          <Property Name="C21F" Type="char" MaxLength="2" />
+          <Property Name="C21FK" Type="nvarchar" MaxLength="200" />
+          <Property Name="C22T" Type="char" MaxLength="2" />
+          <Property Name="C22N" Type="char" MaxLength="4" />
+          <Property Name="C23" Type="char" MaxLength="2" />
+          <Property Name="C24" Type="char" MaxLength="2" />
+          <Property Name="C25A" Type="char" MaxLength="2" />
+          <Property Name="C25B" Type="char" MaxLength="2" />
+          <Property Name="C26A" Type="char" MaxLength="2" />
+          <Property Name="C26B" Type="char" MaxLength="2" />
+          <Property Name="C27A" Type="char" MaxLength="2" />
+          <Property Name="C27B" Type="char" MaxLength="2" />
+          <Property Name="C28A" Type="char" MaxLength="2" />
+          <Property Name="C28B" Type="char" MaxLength="2" />
+          <Property Name="C29T" Type="char" MaxLength="2" />
+          <Property Name="C29N" Type="char" MaxLength="4" />
+          <Property Name="C30A" Type="char" MaxLength="2" />
+          <Property Name="C30B" Type="char" MaxLength="2" />
+          <Property Name="C31" Type="char" MaxLength="2" />
+          <Property Name="C31A" Type="char" MaxLength="2" />
+          <Property Name="C32" Type="char" MaxLength="2" />
+          <Property Name="C33" Type="char" MaxLength="2" />
+          <Property Name="C34" Type="char" MaxLength="2" />
+          <Property Name="C34K" Type="nvarchar" MaxLength="50" />
+          <Property Name="C35" Type="char" MaxLength="2" />
+          <Property Name="C36" Type="char" MaxLength="2" />
+          <Property Name="C36K" Type="nvarchar" MaxLength="50" />
+          <Property Name="C37" Type="char" MaxLength="2" />
+          <Property Name="C37K" Type="nvarchar" MaxLength="50" />
+          <Property Name="C38" Type="char" MaxLength="2" />
+          <Property Name="C39" Type="char" MaxLength="2" />
+          <Property Name="C40" Type="char" MaxLength="2" />
+          <Property Name="C40K" Type="char" MaxLength="2" />
+          <Property Name="C41" Type="char" MaxLength="2" />
+          <Property Name="C41K" Type="char" MaxLength="2" />
+          <Property Name="C42" Type="char" MaxLength="2" />
+          <Property Name="C43" Type="char" MaxLength="2" />
+          <Property Name="C43K" Type="nvarchar" MaxLength="50" />
+          <Property Name="C44" Type="char" MaxLength="2" />
+          <Property Name="C44K" Type="char" MaxLength="2" />
+          <Property Name="C52" Type="char" MaxLength="2" />
+          <Property Name="C53" Type="char" MaxLength="2" />
+          <Property Name="C54" Type="char" MaxLength="2" />
+          <Property Name="C55A" Type="char" MaxLength="2" />
+          <Property Name="C55B" Type="char" MaxLength="2" />
+          <Property Name="C55C" Type="char" MaxLength="2" />
+          <Property Name="C55D" Type="char" MaxLength="2" />
+          <Property Name="C55E" Type="char" MaxLength="2" />
+          <Property Name="C56A" Type="char" MaxLength="2" />
+          <Property Name="C56B" Type="char" MaxLength="2" />
+          <Property Name="C56C" Type="char" MaxLength="2" />
+          <Property Name="C56D" Type="char" MaxLength="2" />
+          <Property Name="C56E" Type="char" MaxLength="2" />
+          <Property Name="C57" Type="char" MaxLength="2" />
+          <Property Name="C58A" Type="char" MaxLength="2" />
+          <Property Name="C58B" Type="char" MaxLength="2" />
+          <Property Name="C58C" Type="char" MaxLength="2" />
+          <Property Name="C58D" Type="char" MaxLength="2" />
+          <Property Name="C58E" Type="char" MaxLength="2" />
+          <Property Name="C58F" Type="char" MaxLength="2" />
+          <Property Name="C58G" Type="char" MaxLength="2" />
+          <Property Name="C58H" Type="char" MaxLength="2" />
+          <Property Name="C58I" Type="char" MaxLength="2" />
+          <Property Name="C58J" Type="char" MaxLength="2" />
+          <Property Name="C58K" Type="char" MaxLength="2" />
+          <Property Name="C58KK" Type="nvarchar" MaxLength="50" />
+          <Property Name="C59" Type="char" MaxLength="2" />
+          <Property Name="C60" Type="char" MaxLength="2" />
+          <Property Name="C61" Type="char" MaxLength="2" />
+          <Property Name="C62" Type="char" MaxLength="2" />
+          <Property Name="C63" Type="char" MaxLength="2" />
+        </EntityType>
+        <EntityType Name="THONGTINHO">
+          <Key>
+            <PropertyRef Name="MaHo" />
+          </Key>
+          <Property Name="MaHo" Type="char" MaxLength="15" Nullable="false" />
+          <Property Name="MaTinh" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="MaHuyen" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="MaXa" Type="char" MaxLength="6" />
+          <Property Name="MaVung" Type="char" MaxLength="3" />
+          <Property Name="TenDB" Type="nvarchar" MaxLength="100" />
+          <Property Name="HoSo" Type="char" MaxLength="3" />
+          <Property Name="Nam" Type="char" MaxLength="4" />
+          <Property Name="HoTenChuHo" Type="nvarchar" MaxLength="150" />
+          <Property Name="DiaChi" Type="nvarchar" MaxLength="500" />
+          <Property Name="MaNV" Type="char" MaxLength="10" />
+          <Property Name="NgayKThuc" Type="date" />
+          <Property Name="NgayPVan" Type="date" />
+          <Property Name="KinhDo" Type="decimal" Precision="10" Scale="7" />
+          <Property Name="ViDo" Type="decimal" Precision="10" Scale="7" />
+          <Property Name="SDT" Type="char" MaxLength="10" />
+          <Property Name="TSNK" Type="char" MaxLength="2" />
+          <Property Name="TSNAM" Type="char" MaxLength="2" />
+          <Property Name="TSNU" Type="char" MaxLength="2" />
+          <Property Name="KT9" Type="char" MaxLength="2" />
+          <Property Name="C45" Type="char" MaxLength="2" />
+          <Property Name="KT14" Type="char" MaxLength="2" />
+          <Property Name="NguoiXN" Type="nvarchar" MaxLength="150" />
+          <Property Name="NguoiTao" Type="char" MaxLength="10" />
+          <Property Name="NgayTao" Type="time" Precision="7" />
+          <Property Name="PhienBan" Type="varchar" MaxLength="5" />
+        </EntityType>
+        <EntityType Name="THONGTINTUVONG">
+          <Key>
+            <PropertyRef Name="MaTVong" />
+          </Key>
+          <Property Name="MaHo" Type="char" MaxLength="15" />
+          <Property Name="MaTVong" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="STTTV" Type="char" MaxLength="2" />
+          <Property Name="HoTenTV" Type="nvarchar" MaxLength="150" />
+          <Property Name="GioiTinh" Type="bit" />
+          <Property Name="ThangTV" Type="char" MaxLength="2" />
+          <Property Name="NamTV" Type="char" MaxLength="4" />
+          <Property Name="ThangSinh" Type="char" MaxLength="2" />
+          <Property Name="NamSinh" Type="char" MaxLength="4" />
+          <Property Name="Tuoi" Type="char" MaxLength="3" />
+          <Property Name="NguyenNhan" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="TINH">
           <Key>
             <PropertyRef Name="MaTinh" />
           </Key>
-          <Property Name="MaTinh" Type="varchar" MaxLength="3" Nullable="false" />
-          <Property Name="MaVung" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="MaTinh" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="MaVung" Type="char" MaxLength="3" />
           <Property Name="TenTinh" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="VUNG">
           <Key>
             <PropertyRef Name="MaVung" />
           </Key>
-          <Property Name="MaVung" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="MaVung" Type="char" MaxLength="3" Nullable="false" />
           <Property Name="TenVung" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="XA">
           <Key>
             <PropertyRef Name="MaXa" />
           </Key>
-          <Property Name="MaXa" Type="varchar" MaxLength="6" Nullable="false" />
-          <Property Name="MaHuyen" Type="varchar" MaxLength="4" />
-          <Property Name="MaTinh" Type="varchar" MaxLength="3" Nullable="false" />
-          <Property Name="TenXa" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="MaXa" Type="char" MaxLength="6" Nullable="false" />
+          <Property Name="MaHuyen" Type="char" MaxLength="4" />
+          <Property Name="MaTinh" Type="char" MaxLength="3" />
+          <Property Name="TenXa" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <Association Name="FK_HUYEN_TINH">
+        <Association Name="FK__DIABAN__MaHuyen__440B1D61">
+          <End Role="HUYEN" Type="Self.HUYEN" Multiplicity="1" />
+          <End Role="DIABAN" Type="Self.DIABAN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HUYEN">
+              <PropertyRef Name="MaHuyen" />
+            </Principal>
+            <Dependent Role="DIABAN">
+              <PropertyRef Name="MaHuyen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DIABAN__MaTinh__4316F928">
           <End Role="TINH" Type="Self.TINH" Multiplicity="1" />
+          <End Role="DIABAN" Type="Self.DIABAN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TINH">
+              <PropertyRef Name="MaTinh" />
+            </Principal>
+            <Dependent Role="DIABAN">
+              <PropertyRef Name="MaTinh" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DIABAN__MaXa__44FF419A">
+          <End Role="XA" Type="Self.XA" Multiplicity="1" />
+          <End Role="DIABAN" Type="Self.DIABAN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="XA">
+              <PropertyRef Name="MaXa" />
+            </Principal>
+            <Dependent Role="DIABAN">
+              <PropertyRef Name="MaXa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HUYEN__MaTinh__3C69FB99">
+          <End Role="TINH" Type="Self.TINH" Multiplicity="0..1" />
           <End Role="HUYEN" Type="Self.HUYEN" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TINH">
@@ -68,8 +266,80 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TINH_VUNG">
-          <End Role="VUNG" Type="Self.VUNG" Multiplicity="1" />
+        <Association Name="FK__THANHVIENT__MaHo__4D94879B">
+          <End Role="THONGTINHO" Type="Self.THONGTINHO" Multiplicity="0..1" />
+          <End Role="THANHVIENTRONGHO" Type="Self.THANHVIENTRONGHO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="THONGTINHO">
+              <PropertyRef Name="MaHo" />
+            </Principal>
+            <Dependent Role="THANHVIENTRONGHO">
+              <PropertyRef Name="MaHo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__THONGTINH__MaHuy__48CFD27E">
+          <End Role="HUYEN" Type="Self.HUYEN" Multiplicity="1" />
+          <End Role="THONGTINHO" Type="Self.THONGTINHO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HUYEN">
+              <PropertyRef Name="MaHuyen" />
+            </Principal>
+            <Dependent Role="THONGTINHO">
+              <PropertyRef Name="MaHuyen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__THONGTINH__MaTin__47DBAE45">
+          <End Role="TINH" Type="Self.TINH" Multiplicity="1" />
+          <End Role="THONGTINHO" Type="Self.THONGTINHO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TINH">
+              <PropertyRef Name="MaTinh" />
+            </Principal>
+            <Dependent Role="THONGTINHO">
+              <PropertyRef Name="MaTinh" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__THONGTINH__MaVun__4AB81AF0">
+          <End Role="VUNG" Type="Self.VUNG" Multiplicity="0..1" />
+          <End Role="THONGTINHO" Type="Self.THONGTINHO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VUNG">
+              <PropertyRef Name="MaVung" />
+            </Principal>
+            <Dependent Role="THONGTINHO">
+              <PropertyRef Name="MaVung" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__THONGTINHO__MaXa__49C3F6B7">
+          <End Role="XA" Type="Self.XA" Multiplicity="0..1" />
+          <End Role="THONGTINHO" Type="Self.THONGTINHO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="XA">
+              <PropertyRef Name="MaXa" />
+            </Principal>
+            <Dependent Role="THONGTINHO">
+              <PropertyRef Name="MaXa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__THONGTINTU__MaHo__5070F446">
+          <End Role="THONGTINHO" Type="Self.THONGTINHO" Multiplicity="0..1" />
+          <End Role="THONGTINTUVONG" Type="Self.THONGTINTUVONG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="THONGTINHO">
+              <PropertyRef Name="MaHo" />
+            </Principal>
+            <Dependent Role="THONGTINTUVONG">
+              <PropertyRef Name="MaHo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TINH__MaVung__398D8EEE">
+          <End Role="VUNG" Type="Self.VUNG" Multiplicity="0..1" />
           <End Role="TINH" Type="Self.TINH" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="VUNG">
@@ -80,7 +350,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_XA_HUYEN">
+        <Association Name="FK__XA__MaHuyen__3F466844">
           <End Role="HUYEN" Type="Self.HUYEN" Multiplicity="0..1" />
           <End Role="XA" Type="Self.XA" Multiplicity="*" />
           <ReferentialConstraint>
@@ -92,8 +362,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_XA_TINH">
-          <End Role="TINH" Type="Self.TINH" Multiplicity="1" />
+        <Association Name="FK__XA__MaTinh__403A8C7D">
+          <End Role="TINH" Type="Self.TINH" Multiplicity="0..1" />
           <End Role="XA" Type="Self.XA" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TINH">
@@ -107,23 +377,61 @@
         <EntityContainer Name="Db_ThucTapModelStoreContainer">
           <EntitySet Name="DIABAN" EntityType="Self.DIABAN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HUYEN" EntityType="Self.HUYEN" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="THANHVIENTRONGHO" EntityType="Self.THANHVIENTRONGHO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="THONGTINHO" EntityType="Self.THONGTINHO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="THONGTINTUVONG" EntityType="Self.THONGTINTUVONG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TINH" EntityType="Self.TINH" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VUNG" EntityType="Self.VUNG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="XA" EntityType="Self.XA" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_HUYEN_TINH" Association="Self.FK_HUYEN_TINH">
+          <AssociationSet Name="FK__DIABAN__MaHuyen__440B1D61" Association="Self.FK__DIABAN__MaHuyen__440B1D61">
+            <End Role="HUYEN" EntitySet="HUYEN" />
+            <End Role="DIABAN" EntitySet="DIABAN" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DIABAN__MaTinh__4316F928" Association="Self.FK__DIABAN__MaTinh__4316F928">
+            <End Role="TINH" EntitySet="TINH" />
+            <End Role="DIABAN" EntitySet="DIABAN" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DIABAN__MaXa__44FF419A" Association="Self.FK__DIABAN__MaXa__44FF419A">
+            <End Role="XA" EntitySet="XA" />
+            <End Role="DIABAN" EntitySet="DIABAN" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HUYEN__MaTinh__3C69FB99" Association="Self.FK__HUYEN__MaTinh__3C69FB99">
             <End Role="TINH" EntitySet="TINH" />
             <End Role="HUYEN" EntitySet="HUYEN" />
           </AssociationSet>
-          <AssociationSet Name="FK_TINH_VUNG" Association="Self.FK_TINH_VUNG">
+          <AssociationSet Name="FK__THANHVIENT__MaHo__4D94879B" Association="Self.FK__THANHVIENT__MaHo__4D94879B">
+            <End Role="THONGTINHO" EntitySet="THONGTINHO" />
+            <End Role="THANHVIENTRONGHO" EntitySet="THANHVIENTRONGHO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__THONGTINH__MaHuy__48CFD27E" Association="Self.FK__THONGTINH__MaHuy__48CFD27E">
+            <End Role="HUYEN" EntitySet="HUYEN" />
+            <End Role="THONGTINHO" EntitySet="THONGTINHO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__THONGTINH__MaTin__47DBAE45" Association="Self.FK__THONGTINH__MaTin__47DBAE45">
+            <End Role="TINH" EntitySet="TINH" />
+            <End Role="THONGTINHO" EntitySet="THONGTINHO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__THONGTINH__MaVun__4AB81AF0" Association="Self.FK__THONGTINH__MaVun__4AB81AF0">
+            <End Role="VUNG" EntitySet="VUNG" />
+            <End Role="THONGTINHO" EntitySet="THONGTINHO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__THONGTINHO__MaXa__49C3F6B7" Association="Self.FK__THONGTINHO__MaXa__49C3F6B7">
+            <End Role="XA" EntitySet="XA" />
+            <End Role="THONGTINHO" EntitySet="THONGTINHO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__THONGTINTU__MaHo__5070F446" Association="Self.FK__THONGTINTU__MaHo__5070F446">
+            <End Role="THONGTINHO" EntitySet="THONGTINHO" />
+            <End Role="THONGTINTUVONG" EntitySet="THONGTINTUVONG" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TINH__MaVung__398D8EEE" Association="Self.FK__TINH__MaVung__398D8EEE">
             <End Role="VUNG" EntitySet="VUNG" />
             <End Role="TINH" EntitySet="TINH" />
           </AssociationSet>
-          <AssociationSet Name="FK_XA_HUYEN" Association="Self.FK_XA_HUYEN">
+          <AssociationSet Name="FK__XA__MaHuyen__3F466844" Association="Self.FK__XA__MaHuyen__3F466844">
             <End Role="HUYEN" EntitySet="HUYEN" />
             <End Role="XA" EntitySet="XA" />
           </AssociationSet>
-          <AssociationSet Name="FK_XA_TINH" Association="Self.FK_XA_TINH">
+          <AssociationSet Name="FK__XA__MaTinh__403A8C7D" Association="Self.FK__XA__MaTinh__403A8C7D">
             <End Role="TINH" EntitySet="TINH" />
             <End Role="XA" EntitySet="XA" />
           </AssociationSet>
@@ -135,65 +443,281 @@
       <Schema Namespace="Db_ThucTapModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="DIABAN">
           <Key>
-            <PropertyRef Name="TenDiaBan" />
+            <PropertyRef Name="TenDB" />
           </Key>
-          <Property Name="MaTinh" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Name="MaHuyen" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Name="MaXa" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="TenDiaBan" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MaTinh" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="MaHuyen" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="MaXa" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="TenDB" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="HUYEN" Relationship="Self.FK__DIABAN__MaHuyen__440B1D61" FromRole="DIABAN" ToRole="HUYEN" />
+          <NavigationProperty Name="TINH" Relationship="Self.FK__DIABAN__MaTinh__4316F928" FromRole="DIABAN" ToRole="TINH" />
+          <NavigationProperty Name="XA" Relationship="Self.FK__DIABAN__MaXa__44FF419A" FromRole="DIABAN" ToRole="XA" />
         </EntityType>
         <EntityType Name="HUYEN">
           <Key>
             <PropertyRef Name="MaHuyen" />
           </Key>
-          <Property Name="MaHuyen" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="MaTinh" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="TenHuyen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="TINH" Relationship="Self.FK_HUYEN_TINH" FromRole="HUYEN" ToRole="TINH" />
-          <NavigationProperty Name="XAs" Relationship="Self.FK_XA_HUYEN" FromRole="HUYEN" ToRole="XA" />
+          <Property Name="MaHuyen" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="MaTinh" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="TenHuyen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DIABANs" Relationship="Self.FK__DIABAN__MaHuyen__440B1D61" FromRole="HUYEN" ToRole="DIABAN" />
+          <NavigationProperty Name="TINH" Relationship="Self.FK__HUYEN__MaTinh__3C69FB99" FromRole="HUYEN" ToRole="TINH" />
+          <NavigationProperty Name="THONGTINHOes" Relationship="Self.FK__THONGTINH__MaHuy__48CFD27E" FromRole="HUYEN" ToRole="THONGTINHO" />
+          <NavigationProperty Name="XAs" Relationship="Self.FK__XA__MaHuyen__3F466844" FromRole="HUYEN" ToRole="XA" />
         </EntityType>
-        <EntityType Name="sysdiagram">
+        <EntityType Name="THANHVIENTRONGHO">
           <Key>
-            <PropertyRef Name="diagram_id" />
+            <PropertyRef Name="MaThanhVien" />
           </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="MaHo" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="MaThanhVien" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="STT" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="HoTen" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="C02" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C03" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C04T" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C04N" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="C05" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C06A" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C06B" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="C06C" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C07" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C08" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C09" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C09A" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C09B" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C10" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C11A" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C11B" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C11C" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C11D" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C11E" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C11F" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C11FK" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="C12" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C13" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C13A" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C14" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C15" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C16A" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C16B" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C16C" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C16D" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C16E" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C16F" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C17" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C18" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C19" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C20A" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C20B" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C20C" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C20D" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C20E" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C21A" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C21B" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C21C" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C21D" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C21E" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C21F" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C21FK" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="C22T" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C22N" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="C23" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C24" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C25A" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C25B" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C26A" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C26B" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C27A" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C27B" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C28A" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C28B" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C29T" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C29N" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="C30A" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C30B" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C31" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C31A" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C32" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C33" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C34" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C34K" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="C35" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C36" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C36K" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="C37" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C37K" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="C38" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C39" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C40" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C40K" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C41" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C41K" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C42" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C43" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C43K" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="C44" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C44K" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C52" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C53" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C54" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C55A" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C55B" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C55C" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C55D" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C55E" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C56A" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C56B" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C56C" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C56D" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C56E" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C57" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C58A" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C58B" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C58C" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C58D" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C58E" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C58F" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C58G" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C58H" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C58I" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C58J" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C58K" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C58KK" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="C59" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C60" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C61" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C62" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C63" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="THONGTINHO" Relationship="Self.FK__THANHVIENT__MaHo__4D94879B" FromRole="THANHVIENTRONGHO" ToRole="THONGTINHO" />
+        </EntityType>
+        <EntityType Name="THONGTINHO">
+          <Key>
+            <PropertyRef Name="MaHo" />
+          </Key>
+          <Property Name="MaHo" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="MaTinh" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="MaHuyen" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="MaXa" Type="String" MaxLength="6" FixedLength="true" Unicode="false" />
+          <Property Name="MaVung" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="TenDB" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="HoSo" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="Nam" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="HoTenChuHo" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="DiaChi" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="MaNV" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="NgayKThuc" Type="DateTime" Precision="0" />
+          <Property Name="NgayPVan" Type="DateTime" Precision="0" />
+          <Property Name="KinhDo" Type="Decimal" Precision="10" Scale="7" />
+          <Property Name="ViDo" Type="Decimal" Precision="10" Scale="7" />
+          <Property Name="SDT" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="TSNK" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="TSNAM" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="TSNU" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="KT9" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C45" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="KT14" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="NguoiXN" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="NguoiTao" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="NgayTao" Type="Time" Precision="7" />
+          <Property Name="PhienBan" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="HUYEN" Relationship="Self.FK__THONGTINH__MaHuy__48CFD27E" FromRole="THONGTINHO" ToRole="HUYEN" />
+          <NavigationProperty Name="THANHVIENTRONGHOes" Relationship="Self.FK__THANHVIENT__MaHo__4D94879B" FromRole="THONGTINHO" ToRole="THANHVIENTRONGHO" />
+          <NavigationProperty Name="TINH" Relationship="Self.FK__THONGTINH__MaTin__47DBAE45" FromRole="THONGTINHO" ToRole="TINH" />
+          <NavigationProperty Name="VUNG" Relationship="Self.FK__THONGTINH__MaVun__4AB81AF0" FromRole="THONGTINHO" ToRole="VUNG" />
+          <NavigationProperty Name="XA" Relationship="Self.FK__THONGTINHO__MaXa__49C3F6B7" FromRole="THONGTINHO" ToRole="XA" />
+          <NavigationProperty Name="THONGTINTUVONGs" Relationship="Self.FK__THONGTINTU__MaHo__5070F446" FromRole="THONGTINHO" ToRole="THONGTINTUVONG" />
+        </EntityType>
+        <EntityType Name="THONGTINTUVONG">
+          <Key>
+            <PropertyRef Name="MaTVong" />
+          </Key>
+          <Property Name="MaHo" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="MaTVong" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="STTTV" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="HoTenTV" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="GioiTinh" Type="Boolean" />
+          <Property Name="ThangTV" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="NamTV" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="ThangSinh" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="NamSinh" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="Tuoi" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="NguyenNhan" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="THONGTINHO" Relationship="Self.FK__THONGTINTU__MaHo__5070F446" FromRole="THONGTINTUVONG" ToRole="THONGTINHO" />
         </EntityType>
         <EntityType Name="TINH">
           <Key>
             <PropertyRef Name="MaTinh" />
           </Key>
-          <Property Name="MaTinh" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="MaVung" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MaTinh" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="MaVung" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
           <Property Name="TenTinh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="HUYENs" Relationship="Self.FK_HUYEN_TINH" FromRole="TINH" ToRole="HUYEN" />
-          <NavigationProperty Name="VUNG" Relationship="Self.FK_TINH_VUNG" FromRole="TINH" ToRole="VUNG" />
-          <NavigationProperty Name="XAs" Relationship="Self.FK_XA_TINH" FromRole="TINH" ToRole="XA" />
+          <NavigationProperty Name="DIABANs" Relationship="Self.FK__DIABAN__MaTinh__4316F928" FromRole="TINH" ToRole="DIABAN" />
+          <NavigationProperty Name="HUYENs" Relationship="Self.FK__HUYEN__MaTinh__3C69FB99" FromRole="TINH" ToRole="HUYEN" />
+          <NavigationProperty Name="THONGTINHOes" Relationship="Self.FK__THONGTINH__MaTin__47DBAE45" FromRole="TINH" ToRole="THONGTINHO" />
+          <NavigationProperty Name="VUNG" Relationship="Self.FK__TINH__MaVung__398D8EEE" FromRole="TINH" ToRole="VUNG" />
+          <NavigationProperty Name="XAs" Relationship="Self.FK__XA__MaTinh__403A8C7D" FromRole="TINH" ToRole="XA" />
         </EntityType>
         <EntityType Name="VUNG">
           <Key>
             <PropertyRef Name="MaVung" />
           </Key>
-          <Property Name="MaVung" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MaVung" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="TenVung" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="TINHs" Relationship="Self.FK_TINH_VUNG" FromRole="VUNG" ToRole="TINH" />
+          <NavigationProperty Name="THONGTINHOes" Relationship="Self.FK__THONGTINH__MaVun__4AB81AF0" FromRole="VUNG" ToRole="THONGTINHO" />
+          <NavigationProperty Name="TINHs" Relationship="Self.FK__TINH__MaVung__398D8EEE" FromRole="VUNG" ToRole="TINH" />
         </EntityType>
         <EntityType Name="XA">
           <Key>
             <PropertyRef Name="MaXa" />
           </Key>
-          <Property Name="MaXa" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="MaHuyen" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Name="MaTinh" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="TenXa" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="HUYEN" Relationship="Self.FK_XA_HUYEN" FromRole="XA" ToRole="HUYEN" />
-          <NavigationProperty Name="TINH" Relationship="Self.FK_XA_TINH" FromRole="XA" ToRole="TINH" />
+          <Property Name="MaXa" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="MaHuyen" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="MaTinh" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="TenXa" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="DIABANs" Relationship="Self.FK__DIABAN__MaXa__44FF419A" FromRole="XA" ToRole="DIABAN" />
+          <NavigationProperty Name="HUYEN" Relationship="Self.FK__XA__MaHuyen__3F466844" FromRole="XA" ToRole="HUYEN" />
+          <NavigationProperty Name="THONGTINHOes" Relationship="Self.FK__THONGTINHO__MaXa__49C3F6B7" FromRole="XA" ToRole="THONGTINHO" />
+          <NavigationProperty Name="TINH" Relationship="Self.FK__XA__MaTinh__403A8C7D" FromRole="XA" ToRole="TINH" />
         </EntityType>
-        <Association Name="FK_HUYEN_TINH">
+        <Association Name="FK__DIABAN__MaHuyen__440B1D61">
+          <End Role="HUYEN" Type="Self.HUYEN" Multiplicity="1" />
+          <End Role="DIABAN" Type="Self.DIABAN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HUYEN">
+              <PropertyRef Name="MaHuyen" />
+            </Principal>
+            <Dependent Role="DIABAN">
+              <PropertyRef Name="MaHuyen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DIABAN__MaTinh__4316F928">
           <End Role="TINH" Type="Self.TINH" Multiplicity="1" />
+          <End Role="DIABAN" Type="Self.DIABAN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TINH">
+              <PropertyRef Name="MaTinh" />
+            </Principal>
+            <Dependent Role="DIABAN">
+              <PropertyRef Name="MaTinh" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DIABAN__MaXa__44FF419A">
+          <End Role="XA" Type="Self.XA" Multiplicity="1" />
+          <End Role="DIABAN" Type="Self.DIABAN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="XA">
+              <PropertyRef Name="MaXa" />
+            </Principal>
+            <Dependent Role="DIABAN">
+              <PropertyRef Name="MaXa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HUYEN__MaTinh__3C69FB99">
+          <End Role="TINH" Type="Self.TINH" Multiplicity="0..1" />
           <End Role="HUYEN" Type="Self.HUYEN" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TINH">
@@ -204,7 +728,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_XA_HUYEN">
+        <Association Name="FK__THONGTINH__MaHuy__48CFD27E">
+          <End Role="HUYEN" Type="Self.HUYEN" Multiplicity="1" />
+          <End Role="THONGTINHO" Type="Self.THONGTINHO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HUYEN">
+              <PropertyRef Name="MaHuyen" />
+            </Principal>
+            <Dependent Role="THONGTINHO">
+              <PropertyRef Name="MaHuyen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__XA__MaHuyen__3F466844">
           <End Role="HUYEN" Type="Self.HUYEN" Multiplicity="0..1" />
           <End Role="XA" Type="Self.XA" Multiplicity="*" />
           <ReferentialConstraint>
@@ -216,8 +752,68 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TINH_VUNG">
-          <End Role="VUNG" Type="Self.VUNG" Multiplicity="1" />
+        <Association Name="FK__THANHVIENT__MaHo__4D94879B">
+          <End Role="THONGTINHO" Type="Self.THONGTINHO" Multiplicity="0..1" />
+          <End Role="THANHVIENTRONGHO" Type="Self.THANHVIENTRONGHO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="THONGTINHO">
+              <PropertyRef Name="MaHo" />
+            </Principal>
+            <Dependent Role="THANHVIENTRONGHO">
+              <PropertyRef Name="MaHo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__THONGTINH__MaTin__47DBAE45">
+          <End Role="TINH" Type="Self.TINH" Multiplicity="1" />
+          <End Role="THONGTINHO" Type="Self.THONGTINHO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TINH">
+              <PropertyRef Name="MaTinh" />
+            </Principal>
+            <Dependent Role="THONGTINHO">
+              <PropertyRef Name="MaTinh" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__THONGTINH__MaVun__4AB81AF0">
+          <End Role="VUNG" Type="Self.VUNG" Multiplicity="0..1" />
+          <End Role="THONGTINHO" Type="Self.THONGTINHO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VUNG">
+              <PropertyRef Name="MaVung" />
+            </Principal>
+            <Dependent Role="THONGTINHO">
+              <PropertyRef Name="MaVung" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__THONGTINHO__MaXa__49C3F6B7">
+          <End Role="XA" Type="Self.XA" Multiplicity="0..1" />
+          <End Role="THONGTINHO" Type="Self.THONGTINHO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="XA">
+              <PropertyRef Name="MaXa" />
+            </Principal>
+            <Dependent Role="THONGTINHO">
+              <PropertyRef Name="MaXa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__THONGTINTU__MaHo__5070F446">
+          <End Role="THONGTINHO" Type="Self.THONGTINHO" Multiplicity="0..1" />
+          <End Role="THONGTINTUVONG" Type="Self.THONGTINTUVONG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="THONGTINHO">
+              <PropertyRef Name="MaHo" />
+            </Principal>
+            <Dependent Role="THONGTINTUVONG">
+              <PropertyRef Name="MaHo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TINH__MaVung__398D8EEE">
+          <End Role="VUNG" Type="Self.VUNG" Multiplicity="0..1" />
           <End Role="TINH" Type="Self.TINH" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="VUNG">
@@ -228,8 +824,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_XA_TINH">
-          <End Role="TINH" Type="Self.TINH" Multiplicity="1" />
+        <Association Name="FK__XA__MaTinh__403A8C7D">
+          <End Role="TINH" Type="Self.TINH" Multiplicity="0..1" />
           <End Role="XA" Type="Self.XA" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TINH">
@@ -243,23 +839,61 @@
         <EntityContainer Name="Db_ThucTapEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="DIABANs" EntityType="Self.DIABAN" />
           <EntitySet Name="HUYENs" EntityType="Self.HUYEN" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="THANHVIENTRONGHOes" EntityType="Self.THANHVIENTRONGHO" />
+          <EntitySet Name="THONGTINHOes" EntityType="Self.THONGTINHO" />
+          <EntitySet Name="THONGTINTUVONGs" EntityType="Self.THONGTINTUVONG" />
           <EntitySet Name="TINHs" EntityType="Self.TINH" />
           <EntitySet Name="VUNGs" EntityType="Self.VUNG" />
           <EntitySet Name="XAs" EntityType="Self.XA" />
-          <AssociationSet Name="FK_HUYEN_TINH" Association="Self.FK_HUYEN_TINH">
+          <AssociationSet Name="FK__DIABAN__MaHuyen__440B1D61" Association="Self.FK__DIABAN__MaHuyen__440B1D61">
+            <End Role="HUYEN" EntitySet="HUYENs" />
+            <End Role="DIABAN" EntitySet="DIABANs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DIABAN__MaTinh__4316F928" Association="Self.FK__DIABAN__MaTinh__4316F928">
+            <End Role="TINH" EntitySet="TINHs" />
+            <End Role="DIABAN" EntitySet="DIABANs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DIABAN__MaXa__44FF419A" Association="Self.FK__DIABAN__MaXa__44FF419A">
+            <End Role="XA" EntitySet="XAs" />
+            <End Role="DIABAN" EntitySet="DIABANs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HUYEN__MaTinh__3C69FB99" Association="Self.FK__HUYEN__MaTinh__3C69FB99">
             <End Role="TINH" EntitySet="TINHs" />
             <End Role="HUYEN" EntitySet="HUYENs" />
           </AssociationSet>
-          <AssociationSet Name="FK_XA_HUYEN" Association="Self.FK_XA_HUYEN">
+          <AssociationSet Name="FK__THONGTINH__MaHuy__48CFD27E" Association="Self.FK__THONGTINH__MaHuy__48CFD27E">
+            <End Role="HUYEN" EntitySet="HUYENs" />
+            <End Role="THONGTINHO" EntitySet="THONGTINHOes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__XA__MaHuyen__3F466844" Association="Self.FK__XA__MaHuyen__3F466844">
             <End Role="HUYEN" EntitySet="HUYENs" />
             <End Role="XA" EntitySet="XAs" />
           </AssociationSet>
-          <AssociationSet Name="FK_TINH_VUNG" Association="Self.FK_TINH_VUNG">
+          <AssociationSet Name="FK__THANHVIENT__MaHo__4D94879B" Association="Self.FK__THANHVIENT__MaHo__4D94879B">
+            <End Role="THONGTINHO" EntitySet="THONGTINHOes" />
+            <End Role="THANHVIENTRONGHO" EntitySet="THANHVIENTRONGHOes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__THONGTINH__MaTin__47DBAE45" Association="Self.FK__THONGTINH__MaTin__47DBAE45">
+            <End Role="TINH" EntitySet="TINHs" />
+            <End Role="THONGTINHO" EntitySet="THONGTINHOes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__THONGTINH__MaVun__4AB81AF0" Association="Self.FK__THONGTINH__MaVun__4AB81AF0">
+            <End Role="VUNG" EntitySet="VUNGs" />
+            <End Role="THONGTINHO" EntitySet="THONGTINHOes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__THONGTINHO__MaXa__49C3F6B7" Association="Self.FK__THONGTINHO__MaXa__49C3F6B7">
+            <End Role="XA" EntitySet="XAs" />
+            <End Role="THONGTINHO" EntitySet="THONGTINHOes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__THONGTINTU__MaHo__5070F446" Association="Self.FK__THONGTINTU__MaHo__5070F446">
+            <End Role="THONGTINHO" EntitySet="THONGTINHOes" />
+            <End Role="THONGTINTUVONG" EntitySet="THONGTINTUVONGs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TINH__MaVung__398D8EEE" Association="Self.FK__TINH__MaVung__398D8EEE">
             <End Role="VUNG" EntitySet="VUNGs" />
             <End Role="TINH" EntitySet="TINHs" />
           </AssociationSet>
-          <AssociationSet Name="FK_XA_TINH" Association="Self.FK_XA_TINH">
+          <AssociationSet Name="FK__XA__MaTinh__403A8C7D" Association="Self.FK__XA__MaTinh__403A8C7D">
             <End Role="TINH" EntitySet="TINHs" />
             <End Role="XA" EntitySet="XAs" />
           </AssociationSet>
@@ -276,7 +910,7 @@
                 <ScalarProperty Name="MaTinh" ColumnName="MaTinh" />
                 <ScalarProperty Name="MaHuyen" ColumnName="MaHuyen" />
                 <ScalarProperty Name="MaXa" ColumnName="MaXa" />
-                <ScalarProperty Name="TenDiaBan" ColumnName="TenDiaBan" />
+                <ScalarProperty Name="TenDB" ColumnName="TenDB" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -289,14 +923,178 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="Db_ThucTapModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
+          <EntitySetMapping Name="THANHVIENTRONGHOes">
+            <EntityTypeMapping TypeName="Db_ThucTapModel.THANHVIENTRONGHO">
+              <MappingFragment StoreEntitySet="THANHVIENTRONGHO">
+                <ScalarProperty Name="MaHo" ColumnName="MaHo" />
+                <ScalarProperty Name="MaThanhVien" ColumnName="MaThanhVien" />
+                <ScalarProperty Name="STT" ColumnName="STT" />
+                <ScalarProperty Name="HoTen" ColumnName="HoTen" />
+                <ScalarProperty Name="C02" ColumnName="C02" />
+                <ScalarProperty Name="C03" ColumnName="C03" />
+                <ScalarProperty Name="C04T" ColumnName="C04T" />
+                <ScalarProperty Name="C04N" ColumnName="C04N" />
+                <ScalarProperty Name="C05" ColumnName="C05" />
+                <ScalarProperty Name="C06A" ColumnName="C06A" />
+                <ScalarProperty Name="C06B" ColumnName="C06B" />
+                <ScalarProperty Name="C06C" ColumnName="C06C" />
+                <ScalarProperty Name="C07" ColumnName="C07" />
+                <ScalarProperty Name="C08" ColumnName="C08" />
+                <ScalarProperty Name="C09" ColumnName="C09" />
+                <ScalarProperty Name="C09A" ColumnName="C09A" />
+                <ScalarProperty Name="C09B" ColumnName="C09B" />
+                <ScalarProperty Name="C10" ColumnName="C10" />
+                <ScalarProperty Name="C11A" ColumnName="C11A" />
+                <ScalarProperty Name="C11B" ColumnName="C11B" />
+                <ScalarProperty Name="C11C" ColumnName="C11C" />
+                <ScalarProperty Name="C11D" ColumnName="C11D" />
+                <ScalarProperty Name="C11E" ColumnName="C11E" />
+                <ScalarProperty Name="C11F" ColumnName="C11F" />
+                <ScalarProperty Name="C11FK" ColumnName="C11FK" />
+                <ScalarProperty Name="C12" ColumnName="C12" />
+                <ScalarProperty Name="C13" ColumnName="C13" />
+                <ScalarProperty Name="C13A" ColumnName="C13A" />
+                <ScalarProperty Name="C14" ColumnName="C14" />
+                <ScalarProperty Name="C15" ColumnName="C15" />
+                <ScalarProperty Name="C16A" ColumnName="C16A" />
+                <ScalarProperty Name="C16B" ColumnName="C16B" />
+                <ScalarProperty Name="C16C" ColumnName="C16C" />
+                <ScalarProperty Name="C16D" ColumnName="C16D" />
+                <ScalarProperty Name="C16E" ColumnName="C16E" />
+                <ScalarProperty Name="C16F" ColumnName="C16F" />
+                <ScalarProperty Name="C17" ColumnName="C17" />
+                <ScalarProperty Name="C18" ColumnName="C18" />
+                <ScalarProperty Name="C19" ColumnName="C19" />
+                <ScalarProperty Name="C20A" ColumnName="C20A" />
+                <ScalarProperty Name="C20B" ColumnName="C20B" />
+                <ScalarProperty Name="C20C" ColumnName="C20C" />
+                <ScalarProperty Name="C20D" ColumnName="C20D" />
+                <ScalarProperty Name="C20E" ColumnName="C20E" />
+                <ScalarProperty Name="C21A" ColumnName="C21A" />
+                <ScalarProperty Name="C21B" ColumnName="C21B" />
+                <ScalarProperty Name="C21C" ColumnName="C21C" />
+                <ScalarProperty Name="C21D" ColumnName="C21D" />
+                <ScalarProperty Name="C21E" ColumnName="C21E" />
+                <ScalarProperty Name="C21F" ColumnName="C21F" />
+                <ScalarProperty Name="C21FK" ColumnName="C21FK" />
+                <ScalarProperty Name="C22T" ColumnName="C22T" />
+                <ScalarProperty Name="C22N" ColumnName="C22N" />
+                <ScalarProperty Name="C23" ColumnName="C23" />
+                <ScalarProperty Name="C24" ColumnName="C24" />
+                <ScalarProperty Name="C25A" ColumnName="C25A" />
+                <ScalarProperty Name="C25B" ColumnName="C25B" />
+                <ScalarProperty Name="C26A" ColumnName="C26A" />
+                <ScalarProperty Name="C26B" ColumnName="C26B" />
+                <ScalarProperty Name="C27A" ColumnName="C27A" />
+                <ScalarProperty Name="C27B" ColumnName="C27B" />
+                <ScalarProperty Name="C28A" ColumnName="C28A" />
+                <ScalarProperty Name="C28B" ColumnName="C28B" />
+                <ScalarProperty Name="C29T" ColumnName="C29T" />
+                <ScalarProperty Name="C29N" ColumnName="C29N" />
+                <ScalarProperty Name="C30A" ColumnName="C30A" />
+                <ScalarProperty Name="C30B" ColumnName="C30B" />
+                <ScalarProperty Name="C31" ColumnName="C31" />
+                <ScalarProperty Name="C31A" ColumnName="C31A" />
+                <ScalarProperty Name="C32" ColumnName="C32" />
+                <ScalarProperty Name="C33" ColumnName="C33" />
+                <ScalarProperty Name="C34" ColumnName="C34" />
+                <ScalarProperty Name="C34K" ColumnName="C34K" />
+                <ScalarProperty Name="C35" ColumnName="C35" />
+                <ScalarProperty Name="C36" ColumnName="C36" />
+                <ScalarProperty Name="C36K" ColumnName="C36K" />
+                <ScalarProperty Name="C37" ColumnName="C37" />
+                <ScalarProperty Name="C37K" ColumnName="C37K" />
+                <ScalarProperty Name="C38" ColumnName="C38" />
+                <ScalarProperty Name="C39" ColumnName="C39" />
+                <ScalarProperty Name="C40" ColumnName="C40" />
+                <ScalarProperty Name="C40K" ColumnName="C40K" />
+                <ScalarProperty Name="C41" ColumnName="C41" />
+                <ScalarProperty Name="C41K" ColumnName="C41K" />
+                <ScalarProperty Name="C42" ColumnName="C42" />
+                <ScalarProperty Name="C43" ColumnName="C43" />
+                <ScalarProperty Name="C43K" ColumnName="C43K" />
+                <ScalarProperty Name="C44" ColumnName="C44" />
+                <ScalarProperty Name="C44K" ColumnName="C44K" />
+                <ScalarProperty Name="C52" ColumnName="C52" />
+                <ScalarProperty Name="C53" ColumnName="C53" />
+                <ScalarProperty Name="C54" ColumnName="C54" />
+                <ScalarProperty Name="C55A" ColumnName="C55A" />
+                <ScalarProperty Name="C55B" ColumnName="C55B" />
+                <ScalarProperty Name="C55C" ColumnName="C55C" />
+                <ScalarProperty Name="C55D" ColumnName="C55D" />
+                <ScalarProperty Name="C55E" ColumnName="C55E" />
+                <ScalarProperty Name="C56A" ColumnName="C56A" />
+                <ScalarProperty Name="C56B" ColumnName="C56B" />
+                <ScalarProperty Name="C56C" ColumnName="C56C" />
+                <ScalarProperty Name="C56D" ColumnName="C56D" />
+                <ScalarProperty Name="C56E" ColumnName="C56E" />
+                <ScalarProperty Name="C57" ColumnName="C57" />
+                <ScalarProperty Name="C58A" ColumnName="C58A" />
+                <ScalarProperty Name="C58B" ColumnName="C58B" />
+                <ScalarProperty Name="C58C" ColumnName="C58C" />
+                <ScalarProperty Name="C58D" ColumnName="C58D" />
+                <ScalarProperty Name="C58E" ColumnName="C58E" />
+                <ScalarProperty Name="C58F" ColumnName="C58F" />
+                <ScalarProperty Name="C58G" ColumnName="C58G" />
+                <ScalarProperty Name="C58H" ColumnName="C58H" />
+                <ScalarProperty Name="C58I" ColumnName="C58I" />
+                <ScalarProperty Name="C58J" ColumnName="C58J" />
+                <ScalarProperty Name="C58K" ColumnName="C58K" />
+                <ScalarProperty Name="C58KK" ColumnName="C58KK" />
+                <ScalarProperty Name="C59" ColumnName="C59" />
+                <ScalarProperty Name="C60" ColumnName="C60" />
+                <ScalarProperty Name="C61" ColumnName="C61" />
+                <ScalarProperty Name="C62" ColumnName="C62" />
+                <ScalarProperty Name="C63" ColumnName="C63" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="THONGTINHOes">
+            <EntityTypeMapping TypeName="Db_ThucTapModel.THONGTINHO">
+              <MappingFragment StoreEntitySet="THONGTINHO">
+                <ScalarProperty Name="MaHo" ColumnName="MaHo" />
+                <ScalarProperty Name="MaTinh" ColumnName="MaTinh" />
+                <ScalarProperty Name="MaHuyen" ColumnName="MaHuyen" />
+                <ScalarProperty Name="MaXa" ColumnName="MaXa" />
+                <ScalarProperty Name="MaVung" ColumnName="MaVung" />
+                <ScalarProperty Name="TenDB" ColumnName="TenDB" />
+                <ScalarProperty Name="HoSo" ColumnName="HoSo" />
+                <ScalarProperty Name="Nam" ColumnName="Nam" />
+                <ScalarProperty Name="HoTenChuHo" ColumnName="HoTenChuHo" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="MaNV" ColumnName="MaNV" />
+                <ScalarProperty Name="NgayKThuc" ColumnName="NgayKThuc" />
+                <ScalarProperty Name="NgayPVan" ColumnName="NgayPVan" />
+                <ScalarProperty Name="KinhDo" ColumnName="KinhDo" />
+                <ScalarProperty Name="ViDo" ColumnName="ViDo" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="TSNK" ColumnName="TSNK" />
+                <ScalarProperty Name="TSNAM" ColumnName="TSNAM" />
+                <ScalarProperty Name="TSNU" ColumnName="TSNU" />
+                <ScalarProperty Name="KT9" ColumnName="KT9" />
+                <ScalarProperty Name="C45" ColumnName="C45" />
+                <ScalarProperty Name="KT14" ColumnName="KT14" />
+                <ScalarProperty Name="NguoiXN" ColumnName="NguoiXN" />
+                <ScalarProperty Name="NguoiTao" ColumnName="NguoiTao" />
+                <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
+                <ScalarProperty Name="PhienBan" ColumnName="PhienBan" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="THONGTINTUVONGs">
+            <EntityTypeMapping TypeName="Db_ThucTapModel.THONGTINTUVONG">
+              <MappingFragment StoreEntitySet="THONGTINTUVONG">
+                <ScalarProperty Name="MaHo" ColumnName="MaHo" />
+                <ScalarProperty Name="MaTVong" ColumnName="MaTVong" />
+                <ScalarProperty Name="STTTV" ColumnName="STTTV" />
+                <ScalarProperty Name="HoTenTV" ColumnName="HoTenTV" />
+                <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
+                <ScalarProperty Name="ThangTV" ColumnName="ThangTV" />
+                <ScalarProperty Name="NamTV" ColumnName="NamTV" />
+                <ScalarProperty Name="ThangSinh" ColumnName="ThangSinh" />
+                <ScalarProperty Name="NamSinh" ColumnName="NamSinh" />
+                <ScalarProperty Name="Tuoi" ColumnName="Tuoi" />
+                <ScalarProperty Name="NguyenNhan" ColumnName="NguyenNhan" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

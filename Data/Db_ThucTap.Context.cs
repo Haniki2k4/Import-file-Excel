@@ -27,7 +27,9 @@ namespace Import_file_Excel.Data
     
         public virtual DbSet<DIABAN> DIABANs { get; set; }
         public virtual DbSet<HUYEN> HUYENs { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<THANHVIENTRONGHO> THANHVIENTRONGHOes { get; set; }
+        public virtual DbSet<THONGTINHO> THONGTINHOes { get; set; }
+        public virtual DbSet<THONGTINTUVONG> THONGTINTUVONGs { get; set; }
         public virtual DbSet<TINH> TINHs { get; set; }
         public virtual DbSet<VUNG> VUNGs { get; set; }
         public virtual DbSet<XA> XAs { get; set; }

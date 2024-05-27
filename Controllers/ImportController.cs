@@ -115,7 +115,7 @@ public class ImportController : Controller
                 if (!db.VUNGs.Any(v => v.MaVung == maVung))
                 {
                     var vung = new VUNG { MaVung = maVung, TenVung = tenVung };
-                    db.VUNGs.Add(vung);
+                    vungs.Add(vung);
                     count++;
                 }
 
@@ -157,7 +157,7 @@ public class ImportController : Controller
                 if (!db.TINHs.Any(t => t.MaTinh == maTinh))
                 {
                     var tinh = new TINH { MaTinh = maTinh, MaVung = maVung, TenTinh = tenTinh };
-                    db.TINHs.Add(tinh);
+                    tinhs.Add(tinh);
                     count++;
                 }
 
@@ -199,7 +199,7 @@ public class ImportController : Controller
                 if (!db.HUYENs.Any(h => h.MaHuyen == maHuyen))
                 {
                     var huyen = new HUYEN { MaHuyen = maHuyen, MaTinh = maTinh, TenHuyen = tenHuyen };
-                    db.HUYENs.Add(huyen);
+                    huyens.Add(huyen);
                     count++;
                 }
 
@@ -242,7 +242,7 @@ public class ImportController : Controller
                 if (!db.XAs.Any(x => x.MaXa == maXa))
                 {
                     var xa = new XA { MaXa = maXa, MaHuyen = maHuyen, MaTinh = maTinh, TenXa = tenXa };
-                    db.XAs.Add(xa);
+                    xas.Add(xa);
                     count++;
                 }
 
