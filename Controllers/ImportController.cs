@@ -104,6 +104,12 @@ public class ImportController : Controller
                     case "ThongTinHo":
                         ImportTTinHo(workSheet, startRow, startColumn, out count, errorMessages);
                         break;
+                    case "ThanhVienTrongHo":
+                        ImportThanhVienTrongHo(workSheet, startRow, startColumn, out count, errorMessages);
+                        break;
+                    case "ThongTinTuVong":
+                        ImportThongTinTuVong(workSheet, startRow, startColumn, out count, errorMessages);
+                        break;
                 }
 
                 result = true;
@@ -411,6 +417,126 @@ public class ImportController : Controller
             if (hos.Count > 0)
             {
                 db.THONGTINHOes.AddRange(hos);
+                db.SaveChanges();
+            }
+        }
+        catch (DbEntityValidationException ex)
+        {
+            foreach (var validationErrors in ex.EntityValidationErrors)
+            {
+                foreach (var validationError in validationErrors.ValidationErrors)
+                {
+                    errorMessages.Add($"Property: {validationError.PropertyName} Error: {validationError.ErrorMessage}");
+                }
+            }
+        }
+    }
+
+    private void ImportThanhVienTrongHo(ExcelWorksheet workSheet, int startRow, int startColumn, out int count, List<string> errorMessages)
+    {
+        count = 0;
+        var thanhViens = new List<THANHVIENTRONGHO>();
+
+        // Danh sách các thuộc tính của THANHVIENTRONGHO
+        var properties = typeof(THANHVIENTRONGHO).GetProperties();
+        var propertyNames = properties.Select(p => p.Name).ToArray();
+
+        while (true)
+        {
+            var thanhVien = new THANHVIENTRONGHO();
+            bool isEmptyRow = true;
+
+            for (int i = 0; i < propertyNames.Length; i++)
+            {
+                var propertyName = propertyNames[i];
+                var cellValue = workSheet.Cells[startRow, startColumn + i].Value?.ToString();
+
+                if (!string.IsNullOrEmpty(cellValue))
+                {
+                    isEmptyRow = false;
+                }
+
+                var property = properties.FirstOrDefault(p => p.Name == propertyName);
+                if (property != null)
+                {
+                    // Chuyển đổi giá trị từ chuỗi sang kiểu dữ liệu của thuộc tính
+                    object convertedValue = Convert.ChangeType(cellValue, Nullable.GetUnderlyingType(property.PropertyType) ?? property.PropertyType);
+                    property.SetValue(thanhVien, convertedValue);
+                }
+            }
+
+            if (isEmptyRow)
+            {
+                break; // Nếu hàng trống, kết thúc vòng lặp
+            }
+
+            thanhViens.Add(thanhVien);
+            count++;
+            startRow++;
+        }
+
+        // Thêm danh sách các thành viên vào cơ sở dữ liệu
+        using (var context = new Db_ThucTapEntities())
+        {
+            context.THANHVIENTRONGHOes.AddRange(thanhViens);
+            context.SaveChanges();
+        }
+    }
+
+    private void ImportThongTinTuVong(ExcelWorksheet workSheet, int startRow, int startColumn, out int count, List<string> errorMessages)
+    {
+        count = 0;
+        var thongTinTuVongs = new List<THONGTINTUVONG>();
+
+        while (true)
+        {
+            var maHo = workSheet.Cells[startRow, startColumn].Value?.ToString();
+            var maTVong = workSheet.Cells[startRow, startColumn + 1].Value?.ToString();
+            var sttTV = workSheet.Cells[startRow, startColumn + 2].Value?.ToString();
+            var hoTenTV = workSheet.Cells[startRow, startColumn + 3].Value?.ToString();
+            var gioiTinh = workSheet.Cells[startRow, startColumn + 4].Value?.ToString() == "1"; // Assuming 1 for true, 0 for false
+            var thangTV = workSheet.Cells[startRow, startColumn + 5].Value?.ToString();
+            var namTV = workSheet.Cells[startRow, startColumn + 6].Value?.ToString();
+            var thangSinh = workSheet.Cells[startRow, startColumn + 7].Value?.ToString();
+            var namSinh = workSheet.Cells[startRow, startColumn + 8].Value?.ToString();
+            var tuoi = workSheet.Cells[startRow, startColumn + 9].Value?.ToString();
+            var nguyenNhan = workSheet.Cells[startRow, startColumn + 10].Value?.ToString();
+
+            if (string.IsNullOrEmpty(maHo) || string.IsNullOrEmpty(maTVong))
+                break;
+
+            if (!db.THONGTINTUVONGs.Any(t => t.MaHo == maHo && t.MaTVong == maTVong))
+            {
+                var thongTin = new THONGTINTUVONG
+                {
+                    MaHo = maHo,
+                    MaTVong = maTVong,
+                    STTTV = sttTV,
+                    HoTenTV = hoTenTV,
+                    GioiTinh = gioiTinh,
+                    ThangTV = thangTV,
+                    NamTV = namTV,
+                    ThangSinh = thangSinh,
+                    NamSinh = namSinh,
+                    Tuoi = tuoi,
+                    NguyenNhan = nguyenNhan
+                };
+                thongTinTuVongs.Add(thongTin);
+                count++;
+            }
+            else
+            {
+                errorMessages.Add($"Row {startRow}: MaHo {maHo} and MaTVong {maTVong} already exists.");
+            }
+
+            startRow++;
+        }
+
+        try
+        {
+            if (thongTinTuVongs.Count > 0)
+            {
+                db.THONGTINTUVONGs.AddRange(thongTinTuVongs);
                 db.SaveChanges();
             }
         }
