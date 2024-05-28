@@ -23,6 +23,7 @@ public class ImportController : Controller
     {
         string message = string.Empty;
         int count = 0;
+        List<string> errorMessages = new List<string>();
 
         if (excelFile != null && excelFile.ContentLength > 0 &&
             (excelFile.FileName.EndsWith(".xls") || excelFile.FileName.EndsWith(".xlsx")))
@@ -39,8 +40,19 @@ public class ImportController : Controller
                 string path = Path.Combine(uploadsDir, Path.GetFileName(excelFile.FileName));
                 excelFile.SaveAs(path);
 
-                bool importResult = ImportData(path, dataType, out count);
-                message = importResult ? $"Successfully imported {count} records." : "Failed to import data.";
+                bool importResult = ImportData(path, dataType, out count, errorMessages);
+                if (importResult)
+                {
+                    message = $"Successfully imported {count} records.";
+                    if (errorMessages.Count > 0)
+                    {
+                        message += " However, there were some errors:\n" + string.Join("\n", errorMessages);
+                    }
+                }
+                else
+                {
+                    message = "Failed to import data.";
+                }
             }
             catch (Exception ex)
             {
@@ -57,7 +69,7 @@ public class ImportController : Controller
         return View();
     }
 
-    public bool ImportData(string filePath, string dataType, out int count)
+    public bool ImportData(string filePath, string dataType, out int count, List<string> errorMessages)
     {
         var result = false;
         count = 0;
@@ -75,16 +87,22 @@ public class ImportController : Controller
                 switch (dataType)
                 {
                     case "Vung":
-                        ImportVung(workSheet, startRow, startColumn, out count);
+                        ImportVung(workSheet, startRow, startColumn, out count, errorMessages);
                         break;
                     case "Tinh":
-                        ImportTinh(workSheet, startRow, startColumn, out count);
+                        ImportTinh(workSheet, startRow, startColumn, out count, errorMessages);
                         break;
                     case "Huyen":
-                        ImportHuyen(workSheet, startRow, startColumn, out count);
+                        ImportHuyen(workSheet, startRow, startColumn, out count, errorMessages);
                         break;
                     case "Xa":
-                        ImportXa(workSheet, startRow, startColumn, out count);
+                        ImportXa(workSheet, startRow, startColumn, out count, errorMessages);
+                        break;
+                    case "DiaBan":
+                        ImportDiaBan(workSheet, startRow, startColumn, out count, errorMessages);
+                        break;
+                    case "ThongTinHo":
+                        ImportTTinHo(workSheet, startRow, startColumn, out count, errorMessages);
                         break;
                 }
 
@@ -98,7 +116,7 @@ public class ImportController : Controller
         return result;
     }
 
-    private void ImportVung(ExcelWorksheet workSheet, int startRow, int startColumn, out int count)
+    private void ImportVung(ExcelWorksheet workSheet, int startRow, int startColumn, out int count, List<string> errorMessages)
     {
         count = 0;
         var vungs = new List<VUNG>();
@@ -139,7 +157,7 @@ public class ImportController : Controller
         }
     }
 
-    private void ImportTinh(ExcelWorksheet workSheet, int startRow, int startColumn, out int count)
+    private void ImportTinh(ExcelWorksheet workSheet, int startRow, int startColumn, out int count, List<string> errorMessages)
     {
         count = 0;
         var tinhs = new List<TINH>();
@@ -181,7 +199,7 @@ public class ImportController : Controller
         }
     }
 
-    private void ImportHuyen(ExcelWorksheet workSheet, int startRow, int startColumn, out int count)
+    private void ImportHuyen(ExcelWorksheet workSheet, int startRow, int startColumn, out int count, List<string> errorMessages)
     {
         count = 0;
         var huyens = new List<HUYEN>();
@@ -223,7 +241,7 @@ public class ImportController : Controller
         }
     }
 
-    private void ImportXa(ExcelWorksheet workSheet, int startRow, int startColumn, out int count)
+    private void ImportXa(ExcelWorksheet workSheet, int startRow, int startColumn, out int count, List<string> errorMessages)
     {
         count = 0;
         var xas = new List<XA>();
@@ -265,4 +283,147 @@ public class ImportController : Controller
             }
         }
     }
+
+    private void ImportDiaBan(ExcelWorksheet workSheet, int startRow, int startColumn, out int count, List<string> errorMessages)
+    {
+        count = 0;
+        var diaBans = new List<DIABAN>();
+        try
+        {
+            while (true)
+            {
+                var maTinh = workSheet.Cells[startRow, startColumn].Value?.ToString();
+                var maHuyen = workSheet.Cells[startRow, startColumn + 1].Value?.ToString();
+                var maXa = workSheet.Cells[startRow, startColumn + 2].Value?.ToString();
+                var tenDiaBan = workSheet.Cells[startRow, startColumn + 3].Value?.ToString();
+
+                if (string.IsNullOrEmpty(maXa) || string.IsNullOrEmpty(maTinh) || string.IsNullOrEmpty(tenDiaBan))
+                    break;
+
+                if (!db.DIABANs.Any(x => x.TenDB == tenDiaBan))
+                {
+                    var dBan = new DIABAN { MaTinh = maTinh, MaHuyen = maHuyen, MaXa = maXa, TenDB = tenDiaBan };
+                    diaBans.Add(dBan);
+                    count++;
+                }
+
+                startRow++;
+            }
+            if (diaBans.Count > 0)
+            {
+                db.DIABANs.AddRange(diaBans);
+                db.SaveChanges();
+            }
+        }
+        catch (DbEntityValidationException ex)
+        {
+            foreach (var validationErrors in ex.EntityValidationErrors)
+            {
+                foreach (var validationError in validationErrors.ValidationErrors)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Property: {validationError.PropertyName} Error: {validationError.ErrorMessage}");
+                }
+            }
+        }
+    }
+
+    private void ImportTTinHo(ExcelWorksheet workSheet, int startRow, int startColumn, out int count, List<string> errorMessages)
+    {
+        count = 0;
+        var hos = new List<THONGTINHO>();
+
+        while (true)
+        {
+            var maHo = workSheet.Cells[startRow, startColumn].Value?.ToString();
+            var maTinh = workSheet.Cells[startRow, startColumn + 1].Value?.ToString();
+            var maHuyen = workSheet.Cells[startRow, startColumn + 2].Value?.ToString();
+            var maXa = workSheet.Cells[startRow, startColumn + 3].Value?.ToString();
+            var maVung = workSheet.Cells[startRow, startColumn + 4].Value?.ToString();
+            var tenDiaBan = workSheet.Cells[startRow, startColumn + 5].Value?.ToString();
+            var hoSo = workSheet.Cells[startRow, startColumn + 6].Value?.ToString();
+            var nam = workSheet.Cells[startRow, startColumn + 7].Value?.ToString();
+            var hoTenChuHo = workSheet.Cells[startRow, startColumn + 8].Value?.ToString();
+            var diaChi = workSheet.Cells[startRow, startColumn + 9].Value?.ToString();
+            var maNhanVien = workSheet.Cells[startRow, startColumn + 10].Value?.ToString();
+            var ngayKThuc = workSheet.Cells[startRow, startColumn + 11].Value?.ToString();
+            var ngayPhVan = workSheet.Cells[startRow, startColumn + 12].Value?.ToString();
+            var kinhDo = workSheet.Cells[startRow, startColumn + 13].Value?.ToString();
+            var viDo = workSheet.Cells[startRow, startColumn + 14].Value?.ToString();
+            var sdt = workSheet.Cells[startRow, startColumn + 15].Value?.ToString();
+            var tsnk = workSheet.Cells[startRow, startColumn + 16].Value?.ToString();
+            var tsnam = workSheet.Cells[startRow, startColumn + 17].Value?.ToString();
+            var tsnu = workSheet.Cells[startRow, startColumn + 18].Value?.ToString();
+            var kt9 = workSheet.Cells[startRow, startColumn + 19].Value?.ToString();
+            var c45 = workSheet.Cells[startRow, startColumn + 20].Value?.ToString();
+            var kt14 = workSheet.Cells[startRow, startColumn + 21].Value?.ToString();
+            var nguoiXN = workSheet.Cells[startRow, startColumn + 22].Value?.ToString();
+            var nguoiTao = workSheet.Cells[startRow, startColumn + 23].Value?.ToString();
+            var ngayTao = workSheet.Cells[startRow, startColumn + 24].Value?.ToString();
+            var phienBan = workSheet.Cells[startRow, startColumn + 25].Value?.ToString();
+
+            if (string.IsNullOrEmpty(maHo) || string.IsNullOrEmpty(maTinh) || string.IsNullOrEmpty(maHuyen) || string.IsNullOrEmpty(maXa) || string.IsNullOrEmpty(tenDiaBan) || string.IsNullOrEmpty(hoTenChuHo))
+                break;
+
+            if (!db.THONGTINHOes.Any(h => h.MaHo == maHo))
+            {
+                var ho = new THONGTINHO
+                {
+                    MaHo = maHo,
+                    MaTinh = maTinh,
+                    MaHuyen = maHuyen,
+                    MaXa = maXa,
+                    MaVung = maVung,
+                    TenDB = tenDiaBan,
+                    HoSo = hoSo,
+                    Nam = nam,
+                    HoTenChuHo = hoTenChuHo,
+                    DiaChi = diaChi,
+                    MaNV = maNhanVien,
+                    NgayKThuc = !string.IsNullOrEmpty(ngayKThuc) ? (DateTime?)DateTime.Parse(ngayKThuc) : null,
+                    NgayPVan = !string.IsNullOrEmpty(ngayPhVan) ? (DateTime?)DateTime.Parse(ngayPhVan) : null,
+                    KinhDo = !string.IsNullOrEmpty(kinhDo) ? (decimal?)decimal.Parse(kinhDo) : null,
+                    ViDo = !string.IsNullOrEmpty(viDo) ? (decimal?)decimal.Parse(viDo) : null,
+                    SDT = sdt,
+                    TSNK = tsnk,
+                    TSNAM = tsnam,
+                    TSNU = tsnu,
+                    KT9 = kt9,
+                    C45 = c45,
+                    KT14 = kt14,
+                    NguoiXN = nguoiXN,
+                    NguoiTao = nguoiTao,
+                    NgayTao = !string.IsNullOrEmpty(ngayTao) ? (TimeSpan?)TimeSpan.Parse(ngayTao) : null,
+                    PhienBan = phienBan
+                };
+                hos.Add(ho);
+                count++;
+            }
+            else
+            {
+                errorMessages.Add($"Row {startRow}: MaHo {maHo} already exists.");
+            }
+
+            startRow++;
+        }
+
+        try
+        {
+            if (hos.Count > 0)
+            {
+                db.THONGTINHOes.AddRange(hos);
+                db.SaveChanges();
+            }
+        }
+        catch (DbEntityValidationException ex)
+        {
+            foreach (var validationErrors in ex.EntityValidationErrors)
+            {
+                foreach (var validationError in validationErrors.ValidationErrors)
+                {
+                    errorMessages.Add($"Property: {validationError.PropertyName} Error: {validationError.ErrorMessage}");
+                }
+            }
+        }
+    }
 }
+
