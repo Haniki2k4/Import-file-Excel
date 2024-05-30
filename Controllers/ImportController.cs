@@ -251,44 +251,79 @@ public class ImportController : Controller
     {
         count = 0;
         var xas = new List<XA>();
-        try
+        var batchSize = 1000; // Adjust the batch size based on your memory constraints
+        var currentBatch = new List<XA>();
+
+        using (var transaction = db.Database.BeginTransaction())
         {
-            while (true)
+            try
             {
-                var maXa = workSheet.Cells[startRow, startColumn].Value?.ToString();
-                var maHuyen = workSheet.Cells[startRow, startColumn + 1].Value?.ToString();
-                var maTinh = workSheet.Cells[startRow, startColumn + 2].Value?.ToString();
-                var tenXa = workSheet.Cells[startRow, startColumn + 3].Value?.ToString();
-
-                if (string.IsNullOrEmpty(maXa) || string.IsNullOrEmpty(maTinh) || string.IsNullOrEmpty(tenXa))
-                    break;
-
-                if (!db.XAs.Any(x => x.MaXa == maXa))
+                while (true)
                 {
-                    var xa = new XA { MaXa = maXa, MaHuyen = maHuyen, MaTinh = maTinh, TenXa = tenXa };
-                    xas.Add(xa);
-                    count++;
+                    var maXa = workSheet.Cells[startRow, startColumn].Value?.ToString();
+                    var tenXa = workSheet.Cells[startRow, startColumn + 1].Value?.ToString();
+                    var maHuyen = workSheet.Cells[startRow, startColumn + 2].Value?.ToString();
+                    var maTinh = workSheet.Cells[startRow, startColumn + 3].Value?.ToString();
+
+                    if (string.IsNullOrEmpty(maXa) || string.IsNullOrEmpty(tenXa) || string.IsNullOrEmpty(maHuyen) || string.IsNullOrEmpty(maTinh))
+                        break;
+
+                    if (!db.XAs.Any(x => x.MaXa == maXa))
+                    {
+                        var xa = new XA
+                        {
+                            MaXa = maXa,
+                            TenXa = tenXa,
+                            MaHuyen = maHuyen,
+                            MaTinh = maTinh
+                        };
+                        currentBatch.Add(xa);
+                        count++;
+                    }
+                    else
+                    {
+                        errorMessages.Add($"Row {startRow}: MaXa {maXa} already exists.");
+                    }
+
+                    // Process batch
+                    if (currentBatch.Count >= batchSize)
+                    {
+                        db.XAs.AddRange(currentBatch);
+                        db.SaveChanges();
+                        currentBatch.Clear();
+                    }
+
+                    startRow++;
                 }
 
-                startRow++;
-            }
-            if (xas.Count > 0)
-            {
-                db.XAs.AddRange(xas);
-                db.SaveChanges();
-            }
-        }
-        catch (DbEntityValidationException ex)
-        {
-            foreach (var validationErrors in ex.EntityValidationErrors)
-            {
-                foreach (var validationError in validationErrors.ValidationErrors)
+                // Save remaining records in the last batch
+                if (currentBatch.Count > 0)
                 {
-                    System.Diagnostics.Debug.WriteLine($"Property: {validationError.PropertyName} Error: {validationError.ErrorMessage}");
+                    db.XAs.AddRange(currentBatch);
+                    db.SaveChanges();
                 }
+
+                transaction.Commit();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                transaction.Rollback();
+                foreach (var validationErrors in ex.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        errorMessages.Add($"Property: {validationError.PropertyName} Error: {validationError.ErrorMessage}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+                errorMessages.Add($"Error: {ex.Message}");
             }
         }
     }
+
 
     private void ImportDiaBan(ExcelWorksheet workSheet, int startRow, int startColumn, out int count, List<string> errorMessages)
     {
@@ -298,17 +333,16 @@ public class ImportController : Controller
         {
             while (true)
             {
-                var maTinh = workSheet.Cells[startRow, startColumn].Value?.ToString();
-                var maHuyen = workSheet.Cells[startRow, startColumn + 1].Value?.ToString();
-                var maXa = workSheet.Cells[startRow, startColumn + 2].Value?.ToString();
-                var tenDiaBan = workSheet.Cells[startRow, startColumn + 3].Value?.ToString();
+                var maHuyen = workSheet.Cells[startRow, startColumn].Value?.ToString();
+                var maXa = workSheet.Cells[startRow, startColumn + 1].Value?.ToString();
+                var tenDiaBan = workSheet.Cells[startRow, startColumn + 2].Value?.ToString();
 
-                if (string.IsNullOrEmpty(maXa) || string.IsNullOrEmpty(maTinh) || string.IsNullOrEmpty(tenDiaBan))
+                if (string.IsNullOrEmpty(maXa) || string.IsNullOrEmpty(tenDiaBan))
                     break;
 
                 if (!db.DIABANs.Any(x => x.TenDB == tenDiaBan))
                 {
-                    var dBan = new DIABAN { MaTinh = maTinh, MaHuyen = maHuyen, MaXa = maXa, TenDB = tenDiaBan };
+                    var dBan = new DIABAN {MaHuyen = maHuyen, MaXa = maXa, TenDB = tenDiaBan };
                     diaBans.Add(dBan);
                     count++;
                 }
@@ -364,7 +398,7 @@ public class ImportController : Controller
             var kt14 = workSheet.Cells[startRow, startColumn + 21].Value?.ToString();
             var nguoiXN = workSheet.Cells[startRow, startColumn + 22].Value?.ToString();
             var nguoiTao = workSheet.Cells[startRow, startColumn + 23].Value?.ToString();
-            var ngayTao = workSheet.Cells[startRow, startColumn + 24].Value?.ToString();
+            var ngayTao = workSheet.Cells[startRow, startColumn + 24].Value == null ? (TimeSpan?)null : (TimeSpan)workSheet.Cells[startRow, startColumn + 4].Value;
             var phienBan = workSheet.Cells[startRow, startColumn + 25].Value?.ToString();
 
             if (string.IsNullOrEmpty(maHo) || string.IsNullOrEmpty(maTinh) || string.IsNullOrEmpty(maHuyen) || string.IsNullOrEmpty(maXa) || string.IsNullOrEmpty(tenDiaBan) || string.IsNullOrEmpty(hoTenChuHo))
@@ -398,7 +432,7 @@ public class ImportController : Controller
                     KT14 = kt14,
                     NguoiXN = nguoiXN,
                     NguoiTao = nguoiTao,
-                    NgayTao = !string.IsNullOrEmpty(ngayTao) ? (TimeSpan?)TimeSpan.Parse(ngayTao) : null,
+                    NgayTao = ngayTao ?? TimeSpan.Zero,
                     PhienBan = phienBan
                 };
                 hos.Add(ho);

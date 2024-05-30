@@ -45,7 +45,7 @@ namespace Import_file_Excel.Data
         public string KT14 { get; set; }
         public string NguoiXN { get; set; }
         public string NguoiTao { get; set; }
-        public Nullable<System.TimeSpan> NgayTao { get; set; }
+        public System.TimeSpan NgayTao { get; set; }
         public string PhienBan { get; set; }
     
         public virtual HUYEN HUYEN { get; set; }

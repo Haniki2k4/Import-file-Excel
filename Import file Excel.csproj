@@ -164,6 +164,9 @@
     <Compile Include="Data\HUYEN.cs">
       <DependentUpon>Db_ThucTap.tt</DependentUpon>
     </Compile>
+    <Compile Include="Data\sysdiagram.cs">
+      <DependentUpon>Db_ThucTap.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\THANHVIENTRONGHO.cs">
       <DependentUpon>Db_ThucTap.tt</DependentUpon>
     </Compile>

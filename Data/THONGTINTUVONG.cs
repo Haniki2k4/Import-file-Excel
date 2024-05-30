@@ -18,7 +18,7 @@ namespace Import_file_Excel.Data
         public string MaTVong { get; set; }
         public string STTTV { get; set; }
         public string HoTenTV { get; set; }
-        public Nullable<bool> GioiTinh { get; set; }
+        public bool GioiTinh { get; set; }
         public string ThangTV { get; set; }
         public string NamTV { get; set; }
         public string ThangSinh { get; set; }

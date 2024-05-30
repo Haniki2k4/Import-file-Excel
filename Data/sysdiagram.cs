@@ -12,13 +12,12 @@ namespace Import_file_Excel.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class DIABAN
+    public partial class sysdiagram
     {
-        public string MaHuyen { get; set; }
-        public string MaXa { get; set; }
-        public string TenDB { get; set; }
-    
-        public virtual HUYEN HUYEN { get; set; }
-        public virtual XA XA { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }
