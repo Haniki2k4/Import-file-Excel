@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
@@ -261,11 +262,10 @@ public class ImportController : Controller
                 while (true)
                 {
                     var maXa = workSheet.Cells[startRow, startColumn].Value?.ToString();
-                    var tenXa = workSheet.Cells[startRow, startColumn + 1].Value?.ToString();
-                    var maHuyen = workSheet.Cells[startRow, startColumn + 2].Value?.ToString();
-                    var maTinh = workSheet.Cells[startRow, startColumn + 3].Value?.ToString();
+                    var maHuyen = workSheet.Cells[startRow, startColumn + 1].Value?.ToString();
+                    var tenXa = workSheet.Cells[startRow, startColumn + 2].Value?.ToString();
 
-                    if (string.IsNullOrEmpty(maXa) || string.IsNullOrEmpty(tenXa) || string.IsNullOrEmpty(maHuyen) || string.IsNullOrEmpty(maTinh))
+                    if (string.IsNullOrEmpty(maXa) || string.IsNullOrEmpty(tenXa) || string.IsNullOrEmpty(maHuyen) )
                         break;
 
                     if (!db.XAs.Any(x => x.MaXa == maXa))
@@ -274,8 +274,7 @@ public class ImportController : Controller
                         {
                             MaXa = maXa,
                             TenXa = tenXa,
-                            MaHuyen = maHuyen,
-                            MaTinh = maTinh
+                            MaHuyen = maHuyen
                         };
                         currentBatch.Add(xa);
                         count++;
@@ -328,32 +327,34 @@ public class ImportController : Controller
     private void ImportDiaBan(ExcelWorksheet workSheet, int startRow, int startColumn, out int count, List<string> errorMessages)
     {
         count = 0;
-        var diaBans = new List<DIABAN>();
+
         try
         {
             while (true)
             {
-                var maHuyen = workSheet.Cells[startRow, startColumn].Value?.ToString();
-                var maXa = workSheet.Cells[startRow, startColumn + 1].Value?.ToString();
-                var tenDiaBan = workSheet.Cells[startRow, startColumn + 2].Value?.ToString();
+                var maXa = workSheet.Cells[startRow, startColumn].Value?.ToString();
+                var tenDiaBan = workSheet.Cells[startRow, startColumn + 1].Value?.ToString();
 
                 if (string.IsNullOrEmpty(maXa) || string.IsNullOrEmpty(tenDiaBan))
                     break;
 
-                if (!db.DIABANs.Any(x => x.TenDB == tenDiaBan))
+                var existingDiaBan = db.DIABANs.FirstOrDefault(x => x.TenDB == tenDiaBan && x.MaXa == maXa);
+
+                if (existingDiaBan == null)
                 {
-                    var dBan = new DIABAN {MaHuyen = maHuyen, MaXa = maXa, TenDB = tenDiaBan };
-                    diaBans.Add(dBan);
+                    var newDiaBan = new DIABAN { MaXa = maXa, TenDB = tenDiaBan };
+                    db.DIABANs.Add(newDiaBan);
                     count++;
+                }
+                else
+                {
+                    errorMessages.Add($"Lỗi: Bản ghi trùng lặp cho MaXa '{maXa}' và TenDB '{tenDiaBan}'");
                 }
 
                 startRow++;
             }
-            if (diaBans.Count > 0)
-            {
-                db.DIABANs.AddRange(diaBans);
-                db.SaveChanges();
-            }
+
+            db.SaveChanges();
         }
         catch (DbEntityValidationException ex)
         {
@@ -362,10 +363,23 @@ public class ImportController : Controller
                 foreach (var validationError in validationErrors.ValidationErrors)
                 {
                     System.Diagnostics.Debug.WriteLine($"Property: {validationError.PropertyName} Error: {validationError.ErrorMessage}");
+                    errorMessages.Add($"Property: {validationError.PropertyName} Error: {validationError.ErrorMessage}");
                 }
             }
         }
+        catch (DbUpdateException ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"DbUpdateException: {ex.Message}");
+            errorMessages.Add($"DbUpdateException: {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Exception: {ex.Message}");
+            errorMessages.Add($"Exception: {ex.Message}");
+        }
     }
+
+
 
     private void ImportTTinHo(ExcelWorksheet workSheet, int startRow, int startColumn, out int count, List<string> errorMessages)
     {
@@ -375,33 +389,30 @@ public class ImportController : Controller
         while (true)
         {
             var maHo = workSheet.Cells[startRow, startColumn].Value?.ToString();
-            var maTinh = workSheet.Cells[startRow, startColumn + 1].Value?.ToString();
-            var maHuyen = workSheet.Cells[startRow, startColumn + 2].Value?.ToString();
-            var maXa = workSheet.Cells[startRow, startColumn + 3].Value?.ToString();
-            var maVung = workSheet.Cells[startRow, startColumn + 4].Value?.ToString();
-            var tenDiaBan = workSheet.Cells[startRow, startColumn + 5].Value?.ToString();
-            var hoSo = workSheet.Cells[startRow, startColumn + 6].Value?.ToString();
-            var nam = workSheet.Cells[startRow, startColumn + 7].Value?.ToString();
-            var hoTenChuHo = workSheet.Cells[startRow, startColumn + 8].Value?.ToString();
-            var diaChi = workSheet.Cells[startRow, startColumn + 9].Value?.ToString();
-            var maNhanVien = workSheet.Cells[startRow, startColumn + 10].Value?.ToString();
-            var ngayKThuc = workSheet.Cells[startRow, startColumn + 11].Value?.ToString();
-            var ngayPhVan = workSheet.Cells[startRow, startColumn + 12].Value?.ToString();
-            var kinhDo = workSheet.Cells[startRow, startColumn + 13].Value?.ToString();
-            var viDo = workSheet.Cells[startRow, startColumn + 14].Value?.ToString();
-            var sdt = workSheet.Cells[startRow, startColumn + 15].Value?.ToString();
-            var tsnk = workSheet.Cells[startRow, startColumn + 16].Value?.ToString();
-            var tsnam = workSheet.Cells[startRow, startColumn + 17].Value?.ToString();
-            var tsnu = workSheet.Cells[startRow, startColumn + 18].Value?.ToString();
-            var kt9 = workSheet.Cells[startRow, startColumn + 19].Value?.ToString();
-            var c45 = workSheet.Cells[startRow, startColumn + 20].Value?.ToString();
-            var kt14 = workSheet.Cells[startRow, startColumn + 21].Value?.ToString();
-            var nguoiXN = workSheet.Cells[startRow, startColumn + 22].Value?.ToString();
-            var nguoiTao = workSheet.Cells[startRow, startColumn + 23].Value?.ToString();
-            var ngayTao = workSheet.Cells[startRow, startColumn + 24].Value == null ? (TimeSpan?)null : (TimeSpan)workSheet.Cells[startRow, startColumn + 4].Value;
-            var phienBan = workSheet.Cells[startRow, startColumn + 25].Value?.ToString();
+            var maXa = workSheet.Cells[startRow, startColumn + 1].Value?.ToString();
+            var tenDiaBan = workSheet.Cells[startRow, startColumn + 2].Value?.ToString();
+            var hoSo = workSheet.Cells[startRow, startColumn + 3].Value?.ToString();
+            var nam = workSheet.Cells[startRow, startColumn + 4].Value?.ToString();
+            var hoTenChuHo = workSheet.Cells[startRow, startColumn + 5].Value?.ToString();
+            var diaChi = workSheet.Cells[startRow, startColumn + 6].Value?.ToString();
+            var maNhanVien = workSheet.Cells[startRow, startColumn + 7].Value?.ToString();
+            var ngayKThuc = workSheet.Cells[startRow, startColumn + 8].Value?.ToString();
+            var ngayPhVan = workSheet.Cells[startRow, startColumn + 9].Value?.ToString();
+            var kinhDo = workSheet.Cells[startRow, startColumn + 10].Value?.ToString();
+            var viDo = workSheet.Cells[startRow, startColumn + 11].Value?.ToString();
+            var sdt = workSheet.Cells[startRow, startColumn + 12].Value?.ToString();
+            var tsnk = workSheet.Cells[startRow, startColumn + 13].Value?.ToString();
+            var tsnam = workSheet.Cells[startRow, startColumn + 14].Value?.ToString();
+            var tsnu = workSheet.Cells[startRow, startColumn + 15].Value?.ToString();
+            var kt9 = workSheet.Cells[startRow, startColumn + 16].Value?.ToString();
+            var c45 = workSheet.Cells[startRow, startColumn + 17].Value?.ToString();
+            var kt14 = workSheet.Cells[startRow, startColumn + 18].Value?.ToString();
+            var nguoiXN = workSheet.Cells[startRow, startColumn + 19].Value?.ToString();
+            var nguoiTao = workSheet.Cells[startRow, startColumn + 20].Value?.ToString();
+            var ngayTao = workSheet.Cells[startRow, startColumn + 21].Value == null ? (TimeSpan?)null : (TimeSpan)workSheet.Cells[startRow, startColumn + 4].Value;
+            var phienBan = workSheet.Cells[startRow, startColumn + 22].Value?.ToString();
 
-            if (string.IsNullOrEmpty(maHo) || string.IsNullOrEmpty(maTinh) || string.IsNullOrEmpty(maHuyen) || string.IsNullOrEmpty(maXa) || string.IsNullOrEmpty(tenDiaBan) || string.IsNullOrEmpty(hoTenChuHo))
+            if (string.IsNullOrEmpty(maHo) || string.IsNullOrEmpty(maXa) || string.IsNullOrEmpty(tenDiaBan) || string.IsNullOrEmpty(hoTenChuHo))
                 break;
 
             if (!db.THONGTINHOes.Any(h => h.MaHo == maHo))
@@ -409,10 +420,7 @@ public class ImportController : Controller
                 var ho = new THONGTINHO
                 {
                     MaHo = maHo,
-                    MaTinh = maTinh,
-                    MaHuyen = maHuyen,
                     MaXa = maXa,
-                    MaVung = maVung,
                     TenDB = tenDiaBan,
                     HoSo = hoSo,
                     Nam = nam,
@@ -528,7 +536,7 @@ public class ImportController : Controller
             var maTVong = workSheet.Cells[startRow, startColumn + 1].Value?.ToString();
             var sttTV = workSheet.Cells[startRow, startColumn + 2].Value?.ToString();
             var hoTenTV = workSheet.Cells[startRow, startColumn + 3].Value?.ToString();
-            var gioiTinh = workSheet.Cells[startRow, startColumn + 4].Value?.ToString() == "1"; // Assuming 1 for true, 0 for false
+            var gioiTinh = workSheet.Cells[startRow, startColumn + 4].Value?.ToString();
             var thangTV = workSheet.Cells[startRow, startColumn + 5].Value?.ToString();
             var namTV = workSheet.Cells[startRow, startColumn + 6].Value?.ToString();
             var thangSinh = workSheet.Cells[startRow, startColumn + 7].Value?.ToString();

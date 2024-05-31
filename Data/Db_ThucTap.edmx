@@ -9,17 +9,16 @@
           <Key>
             <PropertyRef Name="TenDB" />
           </Key>
-          <Property Name="MaHuyen" Type="char" MaxLength="4" Nullable="false" />
           <Property Name="MaXa" Type="char" MaxLength="6" Nullable="false" />
-          <Property Name="TenDB" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="TenDB" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <EntityType Name="HUYEN">
           <Key>
             <PropertyRef Name="MaHuyen" />
           </Key>
           <Property Name="MaHuyen" Type="char" MaxLength="4" Nullable="false" />
-          <Property Name="MaTinh" Type="char" MaxLength="3" />
-          <Property Name="TenHuyen" Type="nvarchar" MaxLength="50" />
+          <Property Name="MaTinh" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="TenHuyen" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -35,10 +34,10 @@
           <Key>
             <PropertyRef Name="MaThanhVien" />
           </Key>
-          <Property Name="MaHo" Type="char" MaxLength="15" />
+          <Property Name="MaHo" Type="char" MaxLength="15" Nullable="false" />
           <Property Name="MaThanhVien" Type="char" MaxLength="2" Nullable="false" />
           <Property Name="STT" Type="char" MaxLength="2" />
-          <Property Name="HoTen" Type="nvarchar" MaxLength="150" />
+          <Property Name="HoTen" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="C02" Type="char" MaxLength="2" />
           <Property Name="C03" Type="char" MaxLength="2" />
           <Property Name="C04T" Type="char" MaxLength="2" />
@@ -161,11 +160,8 @@
             <PropertyRef Name="MaHo" />
           </Key>
           <Property Name="MaHo" Type="char" MaxLength="15" Nullable="false" />
-          <Property Name="MaTinh" Type="char" MaxLength="3" />
-          <Property Name="MaHuyen" Type="char" MaxLength="4" />
-          <Property Name="MaXa" Type="char" MaxLength="6" />
-          <Property Name="MaVung" Type="char" MaxLength="3" />
-          <Property Name="TenDB" Type="nvarchar" MaxLength="100" />
+          <Property Name="MaXa" Type="char" MaxLength="6" Nullable="false" />
+          <Property Name="TenDB" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="HoSo" Type="char" MaxLength="3" Nullable="false" />
           <Property Name="Nam" Type="char" MaxLength="4" Nullable="false" />
           <Property Name="HoTenChuHo" Type="nvarchar" MaxLength="150" Nullable="false" />
@@ -175,13 +171,13 @@
           <Property Name="NgayPVan" Type="date" />
           <Property Name="KinhDo" Type="decimal" Precision="10" Scale="7" />
           <Property Name="ViDo" Type="decimal" Precision="10" Scale="7" />
-          <Property Name="SDT" Type="char" MaxLength="10" Nullable="false" />
-          <Property Name="TSNK" Type="char" MaxLength="2" Nullable="false" />
-          <Property Name="TSNAM" Type="char" MaxLength="2" Nullable="false" />
-          <Property Name="TSNU" Type="char" MaxLength="2" Nullable="false" />
-          <Property Name="KT9" Type="char" MaxLength="2" Nullable="false" />
-          <Property Name="C45" Type="char" MaxLength="2" Nullable="false" />
-          <Property Name="KT14" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="SDT" Type="char" MaxLength="12" />
+          <Property Name="TSNK" Type="char" MaxLength="2" />
+          <Property Name="TSNAM" Type="char" MaxLength="2" />
+          <Property Name="TSNU" Type="char" MaxLength="2" />
+          <Property Name="KT9" Type="char" MaxLength="2" />
+          <Property Name="C45" Type="char" MaxLength="2" />
+          <Property Name="KT14" Type="char" MaxLength="2" />
           <Property Name="NguoiXN" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="NguoiTao" Type="char" MaxLength="10" Nullable="false" />
           <Property Name="NgayTao" Type="time" Precision="7" Nullable="false" />
@@ -193,15 +189,15 @@
           </Key>
           <Property Name="MaHo" Type="char" MaxLength="15" Nullable="false" />
           <Property Name="MaTVong" Type="char" MaxLength="2" Nullable="false" />
-          <Property Name="STTTV" Type="char" MaxLength="2" />
+          <Property Name="STTTV" Type="char" MaxLength="2" Nullable="false" />
           <Property Name="HoTenTV" Type="nvarchar" MaxLength="150" Nullable="false" />
-          <Property Name="GioiTinh" Type="bit" Nullable="false" />
+          <Property Name="GioiTinh" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="ThangTV" Type="char" MaxLength="2" Nullable="false" />
           <Property Name="NamTV" Type="char" MaxLength="4" Nullable="false" />
           <Property Name="ThangSinh" Type="char" MaxLength="2" Nullable="false" />
           <Property Name="NamSinh" Type="char" MaxLength="4" Nullable="false" />
           <Property Name="Tuoi" Type="char" MaxLength="3" />
-          <Property Name="NguyenNhan" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="NguyenNhan" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="TINH">
           <Key>
@@ -224,21 +220,8 @@
           </Key>
           <Property Name="MaXa" Type="char" MaxLength="6" Nullable="false" />
           <Property Name="MaHuyen" Type="char" MaxLength="4" />
-          <Property Name="MaTinh" Type="char" MaxLength="3" />
           <Property Name="TenXa" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <Association Name="FK__DIABAN__MaHuyen__440B1D61">
-          <End Role="HUYEN" Type="Self.HUYEN" Multiplicity="1" />
-          <End Role="DIABAN" Type="Self.DIABAN" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HUYEN">
-              <PropertyRef Name="MaHuyen" />
-            </Principal>
-            <Dependent Role="DIABAN">
-              <PropertyRef Name="MaHuyen" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__DIABAN__MaXa__44FF419A">
           <End Role="XA" Type="Self.XA" Multiplicity="1" />
           <End Role="DIABAN" Type="Self.DIABAN" Multiplicity="*" />
@@ -251,20 +234,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__HUYEN__MaTinh__3C69FB99">
-          <End Role="TINH" Type="Self.TINH" Multiplicity="0..1" />
-          <End Role="HUYEN" Type="Self.HUYEN" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TINH">
-              <PropertyRef Name="MaTinh" />
-            </Principal>
-            <Dependent Role="HUYEN">
-              <PropertyRef Name="MaTinh" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__THANHVIENT__MaHo__4D94879B">
-          <End Role="THONGTINHO" Type="Self.THONGTINHO" Multiplicity="0..1" />
+          <End Role="THONGTINHO" Type="Self.THONGTINHO" Multiplicity="1" />
           <End Role="THANHVIENTRONGHO" Type="Self.THANHVIENTRONGHO" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="THONGTINHO">
@@ -272,54 +243,6 @@
             </Principal>
             <Dependent Role="THANHVIENTRONGHO">
               <PropertyRef Name="MaHo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__THONGTINH__MaHuy__48CFD27E">
-          <End Role="HUYEN" Type="Self.HUYEN" Multiplicity="0..1" />
-          <End Role="THONGTINHO" Type="Self.THONGTINHO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HUYEN">
-              <PropertyRef Name="MaHuyen" />
-            </Principal>
-            <Dependent Role="THONGTINHO">
-              <PropertyRef Name="MaHuyen" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__THONGTINH__MaTin__47DBAE45">
-          <End Role="TINH" Type="Self.TINH" Multiplicity="0..1" />
-          <End Role="THONGTINHO" Type="Self.THONGTINHO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TINH">
-              <PropertyRef Name="MaTinh" />
-            </Principal>
-            <Dependent Role="THONGTINHO">
-              <PropertyRef Name="MaTinh" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__THONGTINH__MaVun__4AB81AF0">
-          <End Role="VUNG" Type="Self.VUNG" Multiplicity="0..1" />
-          <End Role="THONGTINHO" Type="Self.THONGTINHO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="VUNG">
-              <PropertyRef Name="MaVung" />
-            </Principal>
-            <Dependent Role="THONGTINHO">
-              <PropertyRef Name="MaVung" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__THONGTINHO__MaXa__49C3F6B7">
-          <End Role="XA" Type="Self.XA" Multiplicity="0..1" />
-          <End Role="THONGTINHO" Type="Self.THONGTINHO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="XA">
-              <PropertyRef Name="MaXa" />
-            </Principal>
-            <Dependent Role="THONGTINHO">
-              <PropertyRef Name="MaXa" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -359,18 +282,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__XA__MaTinh__403A8C7D">
-          <End Role="TINH" Type="Self.TINH" Multiplicity="0..1" />
-          <End Role="XA" Type="Self.XA" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TINH">
-              <PropertyRef Name="MaTinh" />
-            </Principal>
-            <Dependent Role="XA">
-              <PropertyRef Name="MaTinh" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="Db_ThucTapModelStoreContainer">
           <EntitySet Name="DIABAN" EntityType="Self.DIABAN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HUYEN" EntityType="Self.HUYEN" Schema="dbo" store:Type="Tables" />
@@ -381,37 +292,13 @@
           <EntitySet Name="TINH" EntityType="Self.TINH" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VUNG" EntityType="Self.VUNG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="XA" EntityType="Self.XA" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__DIABAN__MaHuyen__440B1D61" Association="Self.FK__DIABAN__MaHuyen__440B1D61">
-            <End Role="HUYEN" EntitySet="HUYEN" />
-            <End Role="DIABAN" EntitySet="DIABAN" />
-          </AssociationSet>
           <AssociationSet Name="FK__DIABAN__MaXa__44FF419A" Association="Self.FK__DIABAN__MaXa__44FF419A">
             <End Role="XA" EntitySet="XA" />
             <End Role="DIABAN" EntitySet="DIABAN" />
           </AssociationSet>
-          <AssociationSet Name="FK__HUYEN__MaTinh__3C69FB99" Association="Self.FK__HUYEN__MaTinh__3C69FB99">
-            <End Role="TINH" EntitySet="TINH" />
-            <End Role="HUYEN" EntitySet="HUYEN" />
-          </AssociationSet>
           <AssociationSet Name="FK__THANHVIENT__MaHo__4D94879B" Association="Self.FK__THANHVIENT__MaHo__4D94879B">
             <End Role="THONGTINHO" EntitySet="THONGTINHO" />
             <End Role="THANHVIENTRONGHO" EntitySet="THANHVIENTRONGHO" />
-          </AssociationSet>
-          <AssociationSet Name="FK__THONGTINH__MaHuy__48CFD27E" Association="Self.FK__THONGTINH__MaHuy__48CFD27E">
-            <End Role="HUYEN" EntitySet="HUYEN" />
-            <End Role="THONGTINHO" EntitySet="THONGTINHO" />
-          </AssociationSet>
-          <AssociationSet Name="FK__THONGTINH__MaTin__47DBAE45" Association="Self.FK__THONGTINH__MaTin__47DBAE45">
-            <End Role="TINH" EntitySet="TINH" />
-            <End Role="THONGTINHO" EntitySet="THONGTINHO" />
-          </AssociationSet>
-          <AssociationSet Name="FK__THONGTINH__MaVun__4AB81AF0" Association="Self.FK__THONGTINH__MaVun__4AB81AF0">
-            <End Role="VUNG" EntitySet="VUNG" />
-            <End Role="THONGTINHO" EntitySet="THONGTINHO" />
-          </AssociationSet>
-          <AssociationSet Name="FK__THONGTINHO__MaXa__49C3F6B7" Association="Self.FK__THONGTINHO__MaXa__49C3F6B7">
-            <End Role="XA" EntitySet="XA" />
-            <End Role="THONGTINHO" EntitySet="THONGTINHO" />
           </AssociationSet>
           <AssociationSet Name="FK__THONGTINTU__MaHo__5070F446" Association="Self.FK__THONGTINTU__MaHo__5070F446">
             <End Role="THONGTINHO" EntitySet="THONGTINHO" />
@@ -425,10 +312,6 @@
             <End Role="HUYEN" EntitySet="HUYEN" />
             <End Role="XA" EntitySet="XA" />
           </AssociationSet>
-          <AssociationSet Name="FK__XA__MaTinh__403A8C7D" Association="Self.FK__XA__MaTinh__403A8C7D">
-            <End Role="TINH" EntitySet="TINH" />
-            <End Role="XA" EntitySet="XA" />
-          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
@@ -439,10 +322,8 @@
           <Key>
             <PropertyRef Name="TenDB" />
           </Key>
-          <Property Name="MaHuyen" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="MaXa" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="TenDB" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="HUYEN" Relationship="Self.FK__DIABAN__MaHuyen__440B1D61" FromRole="DIABAN" ToRole="HUYEN" />
+          <Property Name="TenDB" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="XA" Relationship="Self.FK__DIABAN__MaXa__44FF419A" FromRole="DIABAN" ToRole="XA" />
         </EntityType>
         <EntityType Name="HUYEN">
@@ -450,11 +331,8 @@
             <PropertyRef Name="MaHuyen" />
           </Key>
           <Property Name="MaHuyen" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="MaTinh" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
-          <Property Name="TenHuyen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="DIABANs" Relationship="Self.FK__DIABAN__MaHuyen__440B1D61" FromRole="HUYEN" ToRole="DIABAN" />
-          <NavigationProperty Name="TINH" Relationship="Self.FK__HUYEN__MaTinh__3C69FB99" FromRole="HUYEN" ToRole="TINH" />
-          <NavigationProperty Name="THONGTINHOes" Relationship="Self.FK__THONGTINH__MaHuy__48CFD27E" FromRole="HUYEN" ToRole="THONGTINHO" />
+          <Property Name="MaTinh" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="TenHuyen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="XAs" Relationship="Self.FK__XA__MaHuyen__3F466844" FromRole="HUYEN" ToRole="XA" />
         </EntityType>
         <EntityType Name="sysdiagram">
@@ -471,10 +349,10 @@
           <Key>
             <PropertyRef Name="MaThanhVien" />
           </Key>
-          <Property Name="MaHo" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="MaHo" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="MaThanhVien" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="STT" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
-          <Property Name="HoTen" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="HoTen" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="C02" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
           <Property Name="C03" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
           <Property Name="C04T" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
@@ -598,11 +476,8 @@
             <PropertyRef Name="MaHo" />
           </Key>
           <Property Name="MaHo" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="MaTinh" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
-          <Property Name="MaHuyen" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
-          <Property Name="MaXa" Type="String" MaxLength="6" FixedLength="true" Unicode="false" />
-          <Property Name="MaVung" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
-          <Property Name="TenDB" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MaXa" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="TenDB" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="HoSo" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="Nam" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="HoTenChuHo" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
@@ -612,22 +487,18 @@
           <Property Name="NgayPVan" Type="DateTime" Precision="0" />
           <Property Name="KinhDo" Type="Decimal" Precision="10" Scale="7" />
           <Property Name="ViDo" Type="Decimal" Precision="10" Scale="7" />
-          <Property Name="SDT" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="TSNK" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="TSNAM" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="TSNU" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="KT9" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="C45" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="KT14" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="SDT" Type="String" MaxLength="12" FixedLength="true" Unicode="false" />
+          <Property Name="TSNK" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="TSNAM" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="TSNU" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="KT9" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C45" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="KT14" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
           <Property Name="NguoiXN" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="NguoiTao" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="NgayTao" Type="Time" Nullable="false" Precision="7" />
           <Property Name="PhienBan" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="HUYEN" Relationship="Self.FK__THONGTINH__MaHuy__48CFD27E" FromRole="THONGTINHO" ToRole="HUYEN" />
           <NavigationProperty Name="THANHVIENTRONGHOes" Relationship="Self.FK__THANHVIENT__MaHo__4D94879B" FromRole="THONGTINHO" ToRole="THANHVIENTRONGHO" />
-          <NavigationProperty Name="TINH" Relationship="Self.FK__THONGTINH__MaTin__47DBAE45" FromRole="THONGTINHO" ToRole="TINH" />
-          <NavigationProperty Name="VUNG" Relationship="Self.FK__THONGTINH__MaVun__4AB81AF0" FromRole="THONGTINHO" ToRole="VUNG" />
-          <NavigationProperty Name="XA" Relationship="Self.FK__THONGTINHO__MaXa__49C3F6B7" FromRole="THONGTINHO" ToRole="XA" />
           <NavigationProperty Name="THONGTINTUVONGs" Relationship="Self.FK__THONGTINTU__MaHo__5070F446" FromRole="THONGTINHO" ToRole="THONGTINTUVONG" />
         </EntityType>
         <EntityType Name="THONGTINTUVONG">
@@ -636,15 +507,15 @@
           </Key>
           <Property Name="MaHo" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="MaTVong" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="STTTV" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="STTTV" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="HoTenTV" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="GioiTinh" Type="Boolean" Nullable="false" />
+          <Property Name="GioiTinh" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="ThangTV" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="NamTV" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="ThangSinh" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="NamSinh" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="Tuoi" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
-          <Property Name="NguyenNhan" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NguyenNhan" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="THONGTINHO" Relationship="Self.FK__THONGTINTU__MaHo__5070F446" FromRole="THONGTINTUVONG" ToRole="THONGTINHO" />
         </EntityType>
         <EntityType Name="TINH">
@@ -654,10 +525,7 @@
           <Property Name="MaTinh" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="MaVung" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
           <Property Name="TenTinh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="HUYENs" Relationship="Self.FK__HUYEN__MaTinh__3C69FB99" FromRole="TINH" ToRole="HUYEN" />
-          <NavigationProperty Name="THONGTINHOes" Relationship="Self.FK__THONGTINH__MaTin__47DBAE45" FromRole="TINH" ToRole="THONGTINHO" />
           <NavigationProperty Name="VUNG" Relationship="Self.FK__TINH__MaVung__398D8EEE" FromRole="TINH" ToRole="VUNG" />
-          <NavigationProperty Name="XAs" Relationship="Self.FK__XA__MaTinh__403A8C7D" FromRole="TINH" ToRole="XA" />
         </EntityType>
         <EntityType Name="VUNG">
           <Key>
@@ -665,7 +533,6 @@
           </Key>
           <Property Name="MaVung" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="TenVung" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="THONGTINHOes" Relationship="Self.FK__THONGTINH__MaVun__4AB81AF0" FromRole="VUNG" ToRole="THONGTINHO" />
           <NavigationProperty Name="TINHs" Relationship="Self.FK__TINH__MaVung__398D8EEE" FromRole="VUNG" ToRole="TINH" />
         </EntityType>
         <EntityType Name="XA">
@@ -674,25 +541,10 @@
           </Key>
           <Property Name="MaXa" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="MaHuyen" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
-          <Property Name="MaTinh" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
           <Property Name="TenXa" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="DIABANs" Relationship="Self.FK__DIABAN__MaXa__44FF419A" FromRole="XA" ToRole="DIABAN" />
           <NavigationProperty Name="HUYEN" Relationship="Self.FK__XA__MaHuyen__3F466844" FromRole="XA" ToRole="HUYEN" />
-          <NavigationProperty Name="THONGTINHOes" Relationship="Self.FK__THONGTINHO__MaXa__49C3F6B7" FromRole="XA" ToRole="THONGTINHO" />
-          <NavigationProperty Name="TINH" Relationship="Self.FK__XA__MaTinh__403A8C7D" FromRole="XA" ToRole="TINH" />
         </EntityType>
-        <Association Name="FK__DIABAN__MaHuyen__440B1D61">
-          <End Role="HUYEN" Type="Self.HUYEN" Multiplicity="1" />
-          <End Role="DIABAN" Type="Self.DIABAN" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HUYEN">
-              <PropertyRef Name="MaHuyen" />
-            </Principal>
-            <Dependent Role="DIABAN">
-              <PropertyRef Name="MaHuyen" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__DIABAN__MaXa__44FF419A">
           <End Role="XA" Type="Self.XA" Multiplicity="1" />
           <End Role="DIABAN" Type="Self.DIABAN" Multiplicity="*" />
@@ -702,30 +554,6 @@
             </Principal>
             <Dependent Role="DIABAN">
               <PropertyRef Name="MaXa" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__HUYEN__MaTinh__3C69FB99">
-          <End Role="TINH" Type="Self.TINH" Multiplicity="0..1" />
-          <End Role="HUYEN" Type="Self.HUYEN" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TINH">
-              <PropertyRef Name="MaTinh" />
-            </Principal>
-            <Dependent Role="HUYEN">
-              <PropertyRef Name="MaTinh" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__THONGTINH__MaHuy__48CFD27E">
-          <End Role="HUYEN" Type="Self.HUYEN" Multiplicity="0..1" />
-          <End Role="THONGTINHO" Type="Self.THONGTINHO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HUYEN">
-              <PropertyRef Name="MaHuyen" />
-            </Principal>
-            <Dependent Role="THONGTINHO">
-              <PropertyRef Name="MaHuyen" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -742,7 +570,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__THANHVIENT__MaHo__4D94879B">
-          <End Role="THONGTINHO" Type="Self.THONGTINHO" Multiplicity="0..1" />
+          <End Role="THONGTINHO" Type="Self.THONGTINHO" Multiplicity="1" />
           <End Role="THANHVIENTRONGHO" Type="Self.THANHVIENTRONGHO" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="THONGTINHO">
@@ -750,42 +578,6 @@
             </Principal>
             <Dependent Role="THANHVIENTRONGHO">
               <PropertyRef Name="MaHo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__THONGTINH__MaTin__47DBAE45">
-          <End Role="TINH" Type="Self.TINH" Multiplicity="0..1" />
-          <End Role="THONGTINHO" Type="Self.THONGTINHO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TINH">
-              <PropertyRef Name="MaTinh" />
-            </Principal>
-            <Dependent Role="THONGTINHO">
-              <PropertyRef Name="MaTinh" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__THONGTINH__MaVun__4AB81AF0">
-          <End Role="VUNG" Type="Self.VUNG" Multiplicity="0..1" />
-          <End Role="THONGTINHO" Type="Self.THONGTINHO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="VUNG">
-              <PropertyRef Name="MaVung" />
-            </Principal>
-            <Dependent Role="THONGTINHO">
-              <PropertyRef Name="MaVung" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__THONGTINHO__MaXa__49C3F6B7">
-          <End Role="XA" Type="Self.XA" Multiplicity="0..1" />
-          <End Role="THONGTINHO" Type="Self.THONGTINHO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="XA">
-              <PropertyRef Name="MaXa" />
-            </Principal>
-            <Dependent Role="THONGTINHO">
-              <PropertyRef Name="MaXa" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -813,18 +605,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__XA__MaTinh__403A8C7D">
-          <End Role="TINH" Type="Self.TINH" Multiplicity="0..1" />
-          <End Role="XA" Type="Self.XA" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TINH">
-              <PropertyRef Name="MaTinh" />
-            </Principal>
-            <Dependent Role="XA">
-              <PropertyRef Name="MaTinh" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="Db_ThucTapEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="DIABANs" EntityType="Self.DIABAN" />
           <EntitySet Name="HUYENs" EntityType="Self.HUYEN" />
@@ -835,21 +615,9 @@
           <EntitySet Name="TINHs" EntityType="Self.TINH" />
           <EntitySet Name="VUNGs" EntityType="Self.VUNG" />
           <EntitySet Name="XAs" EntityType="Self.XA" />
-          <AssociationSet Name="FK__DIABAN__MaHuyen__440B1D61" Association="Self.FK__DIABAN__MaHuyen__440B1D61">
-            <End Role="HUYEN" EntitySet="HUYENs" />
-            <End Role="DIABAN" EntitySet="DIABANs" />
-          </AssociationSet>
           <AssociationSet Name="FK__DIABAN__MaXa__44FF419A" Association="Self.FK__DIABAN__MaXa__44FF419A">
             <End Role="XA" EntitySet="XAs" />
             <End Role="DIABAN" EntitySet="DIABANs" />
-          </AssociationSet>
-          <AssociationSet Name="FK__HUYEN__MaTinh__3C69FB99" Association="Self.FK__HUYEN__MaTinh__3C69FB99">
-            <End Role="TINH" EntitySet="TINHs" />
-            <End Role="HUYEN" EntitySet="HUYENs" />
-          </AssociationSet>
-          <AssociationSet Name="FK__THONGTINH__MaHuy__48CFD27E" Association="Self.FK__THONGTINH__MaHuy__48CFD27E">
-            <End Role="HUYEN" EntitySet="HUYENs" />
-            <End Role="THONGTINHO" EntitySet="THONGTINHOes" />
           </AssociationSet>
           <AssociationSet Name="FK__XA__MaHuyen__3F466844" Association="Self.FK__XA__MaHuyen__3F466844">
             <End Role="HUYEN" EntitySet="HUYENs" />
@@ -859,18 +627,6 @@
             <End Role="THONGTINHO" EntitySet="THONGTINHOes" />
             <End Role="THANHVIENTRONGHO" EntitySet="THANHVIENTRONGHOes" />
           </AssociationSet>
-          <AssociationSet Name="FK__THONGTINH__MaTin__47DBAE45" Association="Self.FK__THONGTINH__MaTin__47DBAE45">
-            <End Role="TINH" EntitySet="TINHs" />
-            <End Role="THONGTINHO" EntitySet="THONGTINHOes" />
-          </AssociationSet>
-          <AssociationSet Name="FK__THONGTINH__MaVun__4AB81AF0" Association="Self.FK__THONGTINH__MaVun__4AB81AF0">
-            <End Role="VUNG" EntitySet="VUNGs" />
-            <End Role="THONGTINHO" EntitySet="THONGTINHOes" />
-          </AssociationSet>
-          <AssociationSet Name="FK__THONGTINHO__MaXa__49C3F6B7" Association="Self.FK__THONGTINHO__MaXa__49C3F6B7">
-            <End Role="XA" EntitySet="XAs" />
-            <End Role="THONGTINHO" EntitySet="THONGTINHOes" />
-          </AssociationSet>
           <AssociationSet Name="FK__THONGTINTU__MaHo__5070F446" Association="Self.FK__THONGTINTU__MaHo__5070F446">
             <End Role="THONGTINHO" EntitySet="THONGTINHOes" />
             <End Role="THONGTINTUVONG" EntitySet="THONGTINTUVONGs" />
@@ -878,10 +634,6 @@
           <AssociationSet Name="FK__TINH__MaVung__398D8EEE" Association="Self.FK__TINH__MaVung__398D8EEE">
             <End Role="VUNG" EntitySet="VUNGs" />
             <End Role="TINH" EntitySet="TINHs" />
-          </AssociationSet>
-          <AssociationSet Name="FK__XA__MaTinh__403A8C7D" Association="Self.FK__XA__MaTinh__403A8C7D">
-            <End Role="TINH" EntitySet="TINHs" />
-            <End Role="XA" EntitySet="XAs" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -893,7 +645,6 @@
           <EntitySetMapping Name="DIABANs">
             <EntityTypeMapping TypeName="Db_ThucTapModel.DIABAN">
               <MappingFragment StoreEntitySet="DIABAN">
-                <ScalarProperty Name="MaHuyen" ColumnName="MaHuyen" />
                 <ScalarProperty Name="MaXa" ColumnName="MaXa" />
                 <ScalarProperty Name="TenDB" ColumnName="TenDB" />
               </MappingFragment>
@@ -1049,10 +800,7 @@
             <EntityTypeMapping TypeName="Db_ThucTapModel.THONGTINHO">
               <MappingFragment StoreEntitySet="THONGTINHO">
                 <ScalarProperty Name="MaHo" ColumnName="MaHo" />
-                <ScalarProperty Name="MaTinh" ColumnName="MaTinh" />
-                <ScalarProperty Name="MaHuyen" ColumnName="MaHuyen" />
                 <ScalarProperty Name="MaXa" ColumnName="MaXa" />
-                <ScalarProperty Name="MaVung" ColumnName="MaVung" />
                 <ScalarProperty Name="TenDB" ColumnName="TenDB" />
                 <ScalarProperty Name="HoSo" ColumnName="HoSo" />
                 <ScalarProperty Name="Nam" ColumnName="Nam" />
@@ -1116,7 +864,6 @@
               <MappingFragment StoreEntitySet="XA">
                 <ScalarProperty Name="MaXa" ColumnName="MaXa" />
                 <ScalarProperty Name="MaHuyen" ColumnName="MaHuyen" />
-                <ScalarProperty Name="MaTinh" ColumnName="MaTinh" />
                 <ScalarProperty Name="TenXa" ColumnName="TenXa" />
               </MappingFragment>
             </EntityTypeMapping>

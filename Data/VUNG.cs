@@ -17,15 +17,12 @@ namespace Import_file_Excel.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public VUNG()
         {
-            this.THONGTINHOes = new HashSet<THONGTINHO>();
             this.TINHs = new HashSet<TINH>();
         }
     
         public string MaVung { get; set; }
         public string TenVung { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<THONGTINHO> THONGTINHOes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TINH> TINHs { get; set; }
     }

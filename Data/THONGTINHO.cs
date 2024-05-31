@@ -22,10 +22,7 @@ namespace Import_file_Excel.Data
         }
     
         public string MaHo { get; set; }
-        public string MaTinh { get; set; }
-        public string MaHuyen { get; set; }
         public string MaXa { get; set; }
-        public string MaVung { get; set; }
         public string TenDB { get; set; }
         public string HoSo { get; set; }
         public string Nam { get; set; }
@@ -48,12 +45,8 @@ namespace Import_file_Excel.Data
         public System.TimeSpan NgayTao { get; set; }
         public string PhienBan { get; set; }
     
-        public virtual HUYEN HUYEN { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<THANHVIENTRONGHO> THANHVIENTRONGHOes { get; set; }
-        public virtual TINH TINH { get; set; }
-        public virtual VUNG VUNG { get; set; }
-        public virtual XA XA { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<THONGTINTUVONG> THONGTINTUVONGs { get; set; }
     }

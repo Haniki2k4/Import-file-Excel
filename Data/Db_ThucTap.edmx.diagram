@@ -4,28 +4,21 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="23a6af184d214e3b91a1562af7d7c670" Name="Diagram1">
-        <EntityTypeShape EntityType="Db_ThucTapModel.DIABAN" Width="1.5" PointX="7.5" PointY="47.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Db_ThucTapModel.HUYEN" Width="1.5" PointX="5.25" PointY="46.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Db_ThucTapModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Db_ThucTapModel.THANHVIENTRONGHO" Width="1.5" PointX="9.75" PointY="24" IsExpanded="true" />
-        <EntityTypeShape EntityType="Db_ThucTapModel.THONGTINHO" Width="1.5" PointX="7.5" PointY="30.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Db_ThucTapModel.THONGTINTUVONG" Width="1.5" PointX="9.75" PointY="20" IsExpanded="true" />
-        <EntityTypeShape EntityType="Db_ThucTapModel.TINH" Width="1.5" PointX="3" PointY="46.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Db_ThucTapModel.VUNG" Width="1.5" PointX="0.75" PointY="18.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Db_ThucTapModel.XA" Width="1.5" PointX="7.5" PointY="43.75" IsExpanded="true" />
-        <AssociationConnector Association="Db_ThucTapModel.FK__DIABAN__MaHuyen__440B1D61" ManuallyRouted="false" />
+      <Diagram DiagramId="0a4b965599fb409e9786097900b7687b" Name="Diagram1">
+        <EntityTypeShape EntityType="Db_ThucTapModel.DIABAN" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Db_ThucTapModel.HUYEN" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Db_ThucTapModel.sysdiagram" Width="1.5" PointX="5.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Db_ThucTapModel.THANHVIENTRONGHO" Width="1.5" PointX="3" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Db_ThucTapModel.THONGTINHO" Width="1.5" PointX="0.75" PointY="16.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Db_ThucTapModel.THONGTINTUVONG" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Db_ThucTapModel.TINH" Width="1.5" PointX="8" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Db_ThucTapModel.VUNG" Width="1.5" PointX="5.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="Db_ThucTapModel.XA" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
         <AssociationConnector Association="Db_ThucTapModel.FK__DIABAN__MaXa__44FF419A" ManuallyRouted="false" />
-        <AssociationConnector Association="Db_ThucTapModel.FK__HUYEN__MaTinh__3C69FB99" ManuallyRouted="false" />
-        <AssociationConnector Association="Db_ThucTapModel.FK__THONGTINH__MaHuy__48CFD27E" ManuallyRouted="false" />
         <AssociationConnector Association="Db_ThucTapModel.FK__XA__MaHuyen__3F466844" ManuallyRouted="false" />
         <AssociationConnector Association="Db_ThucTapModel.FK__THANHVIENT__MaHo__4D94879B" ManuallyRouted="false" />
-        <AssociationConnector Association="Db_ThucTapModel.FK__THONGTINH__MaTin__47DBAE45" ManuallyRouted="false" />
-        <AssociationConnector Association="Db_ThucTapModel.FK__THONGTINH__MaVun__4AB81AF0" ManuallyRouted="false" />
-        <AssociationConnector Association="Db_ThucTapModel.FK__THONGTINHO__MaXa__49C3F6B7" ManuallyRouted="false" />
         <AssociationConnector Association="Db_ThucTapModel.FK__THONGTINTU__MaHo__5070F446" ManuallyRouted="false" />
         <AssociationConnector Association="Db_ThucTapModel.FK__TINH__MaVung__398D8EEE" ManuallyRouted="false" />
-        <AssociationConnector Association="Db_ThucTapModel.FK__XA__MaTinh__403A8C7D" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

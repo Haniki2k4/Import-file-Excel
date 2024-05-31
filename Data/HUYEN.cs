@@ -17,8 +17,6 @@ namespace Import_file_Excel.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public HUYEN()
         {
-            this.DIABANs = new HashSet<DIABAN>();
-            this.THONGTINHOes = new HashSet<THONGTINHO>();
             this.XAs = new HashSet<XA>();
         }
     
@@ -26,11 +24,6 @@ namespace Import_file_Excel.Data
         public string MaTinh { get; set; }
         public string TenHuyen { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DIABAN> DIABANs { get; set; }
-        public virtual TINH TINH { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<THONGTINHO> THONGTINHOes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<XA> XAs { get; set; }
     }

@@ -14,24 +14,10 @@ namespace Import_file_Excel.Data
     
     public partial class TINH
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TINH()
-        {
-            this.HUYENs = new HashSet<HUYEN>();
-            this.THONGTINHOes = new HashSet<THONGTINHO>();
-            this.XAs = new HashSet<XA>();
-        }
-    
         public string MaTinh { get; set; }
         public string MaVung { get; set; }
         public string TenTinh { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HUYEN> HUYENs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<THONGTINHO> THONGTINHOes { get; set; }
         public virtual VUNG VUNG { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<XA> XAs { get; set; }
     }
 }
