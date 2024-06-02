@@ -4,11 +4,11 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0a4b965599fb409e9786097900b7687b" Name="Diagram1">
+      <Diagram DiagramId="b6b76df2b4154dc688de677b7677b1b7" Name="Diagram1">
         <EntityTypeShape EntityType="Db_ThucTapModel.DIABAN" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="Db_ThucTapModel.HUYEN" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="Db_ThucTapModel.sysdiagram" Width="1.5" PointX="5.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Db_ThucTapModel.THANHVIENTRONGHO" Width="1.5" PointX="3" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Db_ThucTapModel.THANHVIENTRONGHO" Width="1.5" PointX="3" PointY="9.25" IsExpanded="true" />
         <EntityTypeShape EntityType="Db_ThucTapModel.THONGTINHO" Width="1.5" PointX="0.75" PointY="16.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Db_ThucTapModel.THONGTINTUVONG" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
         <EntityTypeShape EntityType="Db_ThucTapModel.TINH" Width="1.5" PointX="8" PointY="3.875" IsExpanded="true" />
@@ -16,7 +16,7 @@
         <EntityTypeShape EntityType="Db_ThucTapModel.XA" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
         <AssociationConnector Association="Db_ThucTapModel.FK__DIABAN__MaXa__44FF419A" ManuallyRouted="false" />
         <AssociationConnector Association="Db_ThucTapModel.FK__XA__MaHuyen__3F466844" ManuallyRouted="false" />
-        <AssociationConnector Association="Db_ThucTapModel.FK__THANHVIENT__MaHo__4D94879B" ManuallyRouted="false" />
+        <AssociationConnector Association="Db_ThucTapModel.FK_THANHVIENTRONGHO_THONGTINHO" ManuallyRouted="false" />
         <AssociationConnector Association="Db_ThucTapModel.FK__THONGTINTU__MaHo__5070F446" ManuallyRouted="false" />
         <AssociationConnector Association="Db_ThucTapModel.FK__TINH__MaVung__398D8EEE" ManuallyRouted="false" />
       </Diagram>

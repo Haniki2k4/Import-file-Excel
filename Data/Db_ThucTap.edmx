@@ -32,8 +32,9 @@
         </EntityType>
         <EntityType Name="THANHVIENTRONGHO">
           <Key>
-            <PropertyRef Name="MaThanhVien" />
+            <PropertyRef Name="MaTvienHo" />
           </Key>
+          <Property Name="MaTvienHo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MaHo" Type="char" MaxLength="15" Nullable="false" />
           <Property Name="MaThanhVien" Type="char" MaxLength="2" Nullable="false" />
           <Property Name="STT" Type="char" MaxLength="2" />
@@ -42,7 +43,7 @@
           <Property Name="C03" Type="char" MaxLength="2" />
           <Property Name="C04T" Type="char" MaxLength="2" />
           <Property Name="C04N" Type="char" MaxLength="4" />
-          <Property Name="C05" Type="char" MaxLength="2" />
+          <Property Name="C05" Type="char" MaxLength="4" />
           <Property Name="C06A" Type="char" MaxLength="2" />
           <Property Name="C06B" Type="char" MaxLength="10" />
           <Property Name="C06C" Type="char" MaxLength="2" />
@@ -154,6 +155,7 @@
           <Property Name="C61" Type="char" MaxLength="2" />
           <Property Name="C62" Type="char" MaxLength="2" />
           <Property Name="C63" Type="char" MaxLength="2" />
+          <Property Name="NgayTao" Type="datetime" />
         </EntityType>
         <EntityType Name="THONGTINHO">
           <Key>
@@ -167,8 +169,8 @@
           <Property Name="HoTenChuHo" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="DiaChi" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="MaNV" Type="char" MaxLength="10" />
-          <Property Name="NgayKThuc" Type="date" />
-          <Property Name="NgayPVan" Type="date" />
+          <Property Name="NgayKThuc" Type="datetime" />
+          <Property Name="NgayPVan" Type="datetime" />
           <Property Name="KinhDo" Type="decimal" Precision="10" Scale="7" />
           <Property Name="ViDo" Type="decimal" Precision="10" Scale="7" />
           <Property Name="SDT" Type="char" MaxLength="12" />
@@ -180,7 +182,7 @@
           <Property Name="KT14" Type="char" MaxLength="2" />
           <Property Name="NguoiXN" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="NguoiTao" Type="char" MaxLength="10" Nullable="false" />
-          <Property Name="NgayTao" Type="time" Precision="7" Nullable="false" />
+          <Property Name="NgayTao" Type="datetime" />
           <Property Name="PhienBan" Type="varchar" MaxLength="5" />
         </EntityType>
         <EntityType Name="THONGTINTUVONG">
@@ -234,18 +236,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__THANHVIENT__MaHo__4D94879B">
-          <End Role="THONGTINHO" Type="Self.THONGTINHO" Multiplicity="1" />
-          <End Role="THANHVIENTRONGHO" Type="Self.THANHVIENTRONGHO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="THONGTINHO">
-              <PropertyRef Name="MaHo" />
-            </Principal>
-            <Dependent Role="THANHVIENTRONGHO">
-              <PropertyRef Name="MaHo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__THONGTINTU__MaHo__5070F446">
           <End Role="THONGTINHO" Type="Self.THONGTINHO" Multiplicity="1" />
           <End Role="THONGTINTUVONG" Type="Self.THONGTINTUVONG" Multiplicity="*" />
@@ -282,6 +272,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_THANHVIENTRONGHO_THONGTINHO">
+          <End Role="THONGTINHO" Type="Self.THONGTINHO" Multiplicity="1" />
+          <End Role="THANHVIENTRONGHO" Type="Self.THANHVIENTRONGHO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="THONGTINHO">
+              <PropertyRef Name="MaHo" />
+            </Principal>
+            <Dependent Role="THANHVIENTRONGHO">
+              <PropertyRef Name="MaHo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Db_ThucTapModelStoreContainer">
           <EntitySet Name="DIABAN" EntityType="Self.DIABAN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HUYEN" EntityType="Self.HUYEN" Schema="dbo" store:Type="Tables" />
@@ -296,10 +298,6 @@
             <End Role="XA" EntitySet="XA" />
             <End Role="DIABAN" EntitySet="DIABAN" />
           </AssociationSet>
-          <AssociationSet Name="FK__THANHVIENT__MaHo__4D94879B" Association="Self.FK__THANHVIENT__MaHo__4D94879B">
-            <End Role="THONGTINHO" EntitySet="THONGTINHO" />
-            <End Role="THANHVIENTRONGHO" EntitySet="THANHVIENTRONGHO" />
-          </AssociationSet>
           <AssociationSet Name="FK__THONGTINTU__MaHo__5070F446" Association="Self.FK__THONGTINTU__MaHo__5070F446">
             <End Role="THONGTINHO" EntitySet="THONGTINHO" />
             <End Role="THONGTINTUVONG" EntitySet="THONGTINTUVONG" />
@@ -311,6 +309,10 @@
           <AssociationSet Name="FK__XA__MaHuyen__3F466844" Association="Self.FK__XA__MaHuyen__3F466844">
             <End Role="HUYEN" EntitySet="HUYEN" />
             <End Role="XA" EntitySet="XA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_THANHVIENTRONGHO_THONGTINHO" Association="Self.FK_THANHVIENTRONGHO_THONGTINHO">
+            <End Role="THONGTINHO" EntitySet="THONGTINHO" />
+            <End Role="THANHVIENTRONGHO" EntitySet="THANHVIENTRONGHO" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -347,8 +349,9 @@
         </EntityType>
         <EntityType Name="THANHVIENTRONGHO">
           <Key>
-            <PropertyRef Name="MaThanhVien" />
+            <PropertyRef Name="MaTvienHo" />
           </Key>
+          <Property Name="MaTvienHo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MaHo" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="MaThanhVien" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="STT" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
@@ -357,7 +360,7 @@
           <Property Name="C03" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
           <Property Name="C04T" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
           <Property Name="C04N" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
-          <Property Name="C05" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="C05" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
           <Property Name="C06A" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
           <Property Name="C06B" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
           <Property Name="C06C" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
@@ -469,7 +472,8 @@
           <Property Name="C61" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
           <Property Name="C62" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
           <Property Name="C63" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
-          <NavigationProperty Name="THONGTINHO" Relationship="Self.FK__THANHVIENT__MaHo__4D94879B" FromRole="THANHVIENTRONGHO" ToRole="THONGTINHO" />
+          <Property Name="NgayTao" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="THONGTINHO" Relationship="Self.FK_THANHVIENTRONGHO_THONGTINHO" FromRole="THANHVIENTRONGHO" ToRole="THONGTINHO" />
         </EntityType>
         <EntityType Name="THONGTINHO">
           <Key>
@@ -483,8 +487,8 @@
           <Property Name="HoTenChuHo" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DiaChi" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="MaNV" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
-          <Property Name="NgayKThuc" Type="DateTime" Precision="0" />
-          <Property Name="NgayPVan" Type="DateTime" Precision="0" />
+          <Property Name="NgayKThuc" Type="DateTime" Precision="3" />
+          <Property Name="NgayPVan" Type="DateTime" Precision="3" />
           <Property Name="KinhDo" Type="Decimal" Precision="10" Scale="7" />
           <Property Name="ViDo" Type="Decimal" Precision="10" Scale="7" />
           <Property Name="SDT" Type="String" MaxLength="12" FixedLength="true" Unicode="false" />
@@ -496,9 +500,9 @@
           <Property Name="KT14" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
           <Property Name="NguoiXN" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="NguoiTao" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="NgayTao" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="NgayTao" Type="DateTime" Precision="3" />
           <Property Name="PhienBan" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="THANHVIENTRONGHOes" Relationship="Self.FK__THANHVIENT__MaHo__4D94879B" FromRole="THONGTINHO" ToRole="THANHVIENTRONGHO" />
+          <NavigationProperty Name="THANHVIENTRONGHOes" Relationship="Self.FK_THANHVIENTRONGHO_THONGTINHO" FromRole="THONGTINHO" ToRole="THANHVIENTRONGHO" />
           <NavigationProperty Name="THONGTINTUVONGs" Relationship="Self.FK__THONGTINTU__MaHo__5070F446" FromRole="THONGTINHO" ToRole="THONGTINTUVONG" />
         </EntityType>
         <EntityType Name="THONGTINTUVONG">
@@ -569,7 +573,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__THANHVIENT__MaHo__4D94879B">
+        <Association Name="FK_THANHVIENTRONGHO_THONGTINHO">
           <End Role="THONGTINHO" Type="Self.THONGTINHO" Multiplicity="1" />
           <End Role="THANHVIENTRONGHO" Type="Self.THANHVIENTRONGHO" Multiplicity="*" />
           <ReferentialConstraint>
@@ -623,7 +627,7 @@
             <End Role="HUYEN" EntitySet="HUYENs" />
             <End Role="XA" EntitySet="XAs" />
           </AssociationSet>
-          <AssociationSet Name="FK__THANHVIENT__MaHo__4D94879B" Association="Self.FK__THANHVIENT__MaHo__4D94879B">
+          <AssociationSet Name="FK_THANHVIENTRONGHO_THONGTINHO" Association="Self.FK_THANHVIENTRONGHO_THONGTINHO">
             <End Role="THONGTINHO" EntitySet="THONGTINHOes" />
             <End Role="THANHVIENTRONGHO" EntitySet="THANHVIENTRONGHOes" />
           </AssociationSet>
@@ -673,6 +677,7 @@
           <EntitySetMapping Name="THANHVIENTRONGHOes">
             <EntityTypeMapping TypeName="Db_ThucTapModel.THANHVIENTRONGHO">
               <MappingFragment StoreEntitySet="THANHVIENTRONGHO">
+                <ScalarProperty Name="MaTvienHo" ColumnName="MaTvienHo" />
                 <ScalarProperty Name="MaHo" ColumnName="MaHo" />
                 <ScalarProperty Name="MaThanhVien" ColumnName="MaThanhVien" />
                 <ScalarProperty Name="STT" ColumnName="STT" />
@@ -793,6 +798,7 @@
                 <ScalarProperty Name="C61" ColumnName="C61" />
                 <ScalarProperty Name="C62" ColumnName="C62" />
                 <ScalarProperty Name="C63" ColumnName="C63" />
+                <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

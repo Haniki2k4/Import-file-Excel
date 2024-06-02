@@ -384,102 +384,189 @@ public class ImportController : Controller
     private void ImportTTinHo(ExcelWorksheet workSheet, int startRow, int startColumn, out int count, List<string> errorMessages)
     {
         count = 0;
-        var hos = new List<THONGTINHO>();
+        var batchSize = 1000; // Adjust the batch size based on your memory constraints
+        var currentBatch = new List<THONGTINHO>();
 
-        while (true)
+        using (var transaction = db.Database.BeginTransaction())
         {
-            var maHo = workSheet.Cells[startRow, startColumn].Value?.ToString();
-            var maXa = workSheet.Cells[startRow, startColumn + 1].Value?.ToString();
-            var tenDiaBan = workSheet.Cells[startRow, startColumn + 2].Value?.ToString();
-            var hoSo = workSheet.Cells[startRow, startColumn + 3].Value?.ToString();
-            var nam = workSheet.Cells[startRow, startColumn + 4].Value?.ToString();
-            var hoTenChuHo = workSheet.Cells[startRow, startColumn + 5].Value?.ToString();
-            var diaChi = workSheet.Cells[startRow, startColumn + 6].Value?.ToString();
-            var maNhanVien = workSheet.Cells[startRow, startColumn + 7].Value?.ToString();
-            var ngayKThuc = workSheet.Cells[startRow, startColumn + 8].Value?.ToString();
-            var ngayPhVan = workSheet.Cells[startRow, startColumn + 9].Value?.ToString();
-            var kinhDo = workSheet.Cells[startRow, startColumn + 10].Value?.ToString();
-            var viDo = workSheet.Cells[startRow, startColumn + 11].Value?.ToString();
-            var sdt = workSheet.Cells[startRow, startColumn + 12].Value?.ToString();
-            var tsnk = workSheet.Cells[startRow, startColumn + 13].Value?.ToString();
-            var tsnam = workSheet.Cells[startRow, startColumn + 14].Value?.ToString();
-            var tsnu = workSheet.Cells[startRow, startColumn + 15].Value?.ToString();
-            var kt9 = workSheet.Cells[startRow, startColumn + 16].Value?.ToString();
-            var c45 = workSheet.Cells[startRow, startColumn + 17].Value?.ToString();
-            var kt14 = workSheet.Cells[startRow, startColumn + 18].Value?.ToString();
-            var nguoiXN = workSheet.Cells[startRow, startColumn + 19].Value?.ToString();
-            var nguoiTao = workSheet.Cells[startRow, startColumn + 20].Value?.ToString();
-            var ngayTao = workSheet.Cells[startRow, startColumn + 21].Value == null ? (TimeSpan?)null : (TimeSpan)workSheet.Cells[startRow, startColumn + 4].Value;
-            var phienBan = workSheet.Cells[startRow, startColumn + 22].Value?.ToString();
-
-            if (string.IsNullOrEmpty(maHo) || string.IsNullOrEmpty(maXa) || string.IsNullOrEmpty(tenDiaBan) || string.IsNullOrEmpty(hoTenChuHo))
-                break;
-
-            if (!db.THONGTINHOes.Any(h => h.MaHo == maHo))
+            try
             {
-                var ho = new THONGTINHO
+                while (true)
                 {
-                    MaHo = maHo,
-                    MaXa = maXa,
-                    TenDB = tenDiaBan,
-                    HoSo = hoSo,
-                    Nam = nam,
-                    HoTenChuHo = hoTenChuHo,
-                    DiaChi = diaChi,
-                    MaNV = maNhanVien,
-                    NgayKThuc = !string.IsNullOrEmpty(ngayKThuc) ? (DateTime?)DateTime.Parse(ngayKThuc) : null,
-                    NgayPVan = !string.IsNullOrEmpty(ngayPhVan) ? (DateTime?)DateTime.Parse(ngayPhVan) : null,
-                    KinhDo = !string.IsNullOrEmpty(kinhDo) ? (decimal?)decimal.Parse(kinhDo) : null,
-                    ViDo = !string.IsNullOrEmpty(viDo) ? (decimal?)decimal.Parse(viDo) : null,
-                    SDT = sdt,
-                    TSNK = tsnk,
-                    TSNAM = tsnam,
-                    TSNU = tsnu,
-                    KT9 = kt9,
-                    C45 = c45,
-                    KT14 = kt14,
-                    NguoiXN = nguoiXN,
-                    NguoiTao = nguoiTao,
-                    NgayTao = ngayTao ?? TimeSpan.Zero,
-                    PhienBan = phienBan
-                };
-                hos.Add(ho);
-                count++;
-            }
-            else
-            {
-                errorMessages.Add($"Row {startRow}: MaHo {maHo} already exists.");
-            }
+                    var maHo = workSheet.Cells[startRow, startColumn].Value?.ToString();
+                    var maXa = workSheet.Cells[startRow, startColumn + 1].Value?.ToString();
+                    var tenDiaBan = workSheet.Cells[startRow, startColumn + 2].Value?.ToString();
+                    var hoSo = workSheet.Cells[startRow, startColumn + 3].Value?.ToString();
+                    var nam = workSheet.Cells[startRow, startColumn + 4].Value?.ToString();
+                    var hoTenChuHo = workSheet.Cells[startRow, startColumn + 5].Value?.ToString();
+                    var diaChi = workSheet.Cells[startRow, startColumn + 6].Value?.ToString();
+                    var maNhanVien = workSheet.Cells[startRow, startColumn + 7].Value?.ToString();
+                    var ngayKThucCell = workSheet.Cells[startRow, startColumn + 8].Value;
+                    var ngayPhVanCell = workSheet.Cells[startRow, startColumn + 9].Value;
+                    var kinhDo = workSheet.Cells[startRow, startColumn + 10].Value?.ToString();
+                    var viDo = workSheet.Cells[startRow, startColumn + 11].Value?.ToString();
+                    var sdt = workSheet.Cells[startRow, startColumn + 12].Value?.ToString();
+                    var tsnk = workSheet.Cells[startRow, startColumn + 13].Value?.ToString();
+                    var tsnam = workSheet.Cells[startRow, startColumn + 14].Value?.ToString();
+                    var tsnu = workSheet.Cells[startRow, startColumn + 15].Value?.ToString();
+                    var kt9 = workSheet.Cells[startRow, startColumn + 16].Value?.ToString();
+                    var c45 = workSheet.Cells[startRow, startColumn + 17].Value?.ToString();
+                    var kt14 = workSheet.Cells[startRow, startColumn + 18].Value?.ToString();
+                    var nguoiXN = workSheet.Cells[startRow, startColumn + 19].Value?.ToString();
+                    var nguoiTao = workSheet.Cells[startRow, startColumn + 20].Value?.ToString();
+                    var ngayTaoCell = workSheet.Cells[startRow, startColumn + 21].Value;
+                    var phienBan = workSheet.Cells[startRow, startColumn + 22].Value?.ToString();
 
-            startRow++;
-        }
+                    if (string.IsNullOrEmpty(maHo) || string.IsNullOrEmpty(maXa) || string.IsNullOrEmpty(tenDiaBan) || string.IsNullOrEmpty(hoTenChuHo))
+                        break;
 
-        try
-        {
-            if (hos.Count > 0)
-            {
-                db.THONGTINHOes.AddRange(hos);
-                db.SaveChanges();
-            }
-        }
-        catch (DbEntityValidationException ex)
-        {
-            foreach (var validationErrors in ex.EntityValidationErrors)
-            {
-                foreach (var validationError in validationErrors.ValidationErrors)
+                    DateTime? ngayKThuc = null;
+                    if (ngayKThucCell != null)
+                    {
+                        if (DateTime.TryParse(ngayKThucCell.ToString(), out DateTime parsedNgayKThuc))
+                        {
+                            ngayKThuc = parsedNgayKThuc;
+                        }
+                        else if (double.TryParse(ngayKThucCell.ToString(), out double oaDate))
+                        {
+                            ngayKThuc = DateTime.FromOADate(oaDate);
+                        }
+                        else
+                        {
+                            errorMessages.Add($"Row {startRow}: Invalid NgayKThuc format.");
+                            startRow++;
+                            continue;
+                        }
+                    }
+
+                    DateTime? ngayPhVan = null;
+                    if (ngayPhVanCell != null)
+                    {
+                        if (DateTime.TryParse(ngayPhVanCell.ToString(), out DateTime parsedNgayPhVan))
+                        {
+                            ngayPhVan = parsedNgayPhVan;
+                        }
+                        else if (double.TryParse(ngayPhVanCell.ToString(), out double oaDate))
+                        {
+                            ngayPhVan = DateTime.FromOADate(oaDate);
+                        }
+                        else
+                        {
+                            errorMessages.Add($"Row {startRow}: Invalid NgayPVan format.");
+                            startRow++;
+                            continue;
+                        }
+                    }
+
+                    DateTime? ngayTao = null;
+                    if (ngayTaoCell != null)
+                    {
+                        if (DateTime.TryParse(ngayTaoCell.ToString(), out DateTime parsedNgayTao))
+                        {
+                            ngayTao = parsedNgayTao;
+                        }
+                        else if (double.TryParse(ngayTaoCell.ToString(), out double oaDate))
+                        {
+                            ngayTao = DateTime.FromOADate(oaDate);
+                        }
+                        else
+                        {
+                            errorMessages.Add($"Row {startRow}: Invalid NgayTao format.");
+                            startRow++;
+                            continue;
+                        }
+                    }
+
+                    if (!db.THONGTINHOes.Any(h => h.MaHo == maHo))
+                    {
+                        var ho = new THONGTINHO
+                        {
+                            MaHo = maHo,
+                            MaXa = maXa,
+                            TenDB = tenDiaBan,
+                            HoSo = hoSo,
+                            Nam = nam,
+                            HoTenChuHo = hoTenChuHo,
+                            DiaChi = diaChi,
+                            MaNV = maNhanVien,
+                            NgayKThuc = ngayKThuc,
+                            NgayPVan = ngayPhVan,
+                            KinhDo = !string.IsNullOrEmpty(kinhDo) ? (decimal?)decimal.Parse(kinhDo) : null,
+                            ViDo = !string.IsNullOrEmpty(viDo) ? (decimal?)decimal.Parse(viDo) : null,
+                            SDT = sdt,
+                            TSNK = tsnk,
+                            TSNAM = tsnam,
+                            TSNU = tsnu,
+                            KT9 = kt9,
+                            C45 = c45,
+                            KT14 = kt14,
+                            NguoiXN = nguoiXN,
+                            NguoiTao = nguoiTao,
+                            NgayTao = ngayTao,
+                            PhienBan = phienBan
+                        };
+                        currentBatch.Add(ho);
+                        count++;
+                    }
+                    else
+                    {
+                        errorMessages.Add($"Row {startRow}: MaHo {maHo} already exists.");
+                    }
+
+                    // Process batch
+                    if (currentBatch.Count >= batchSize)
+                    {
+                        db.THONGTINHOes.AddRange(currentBatch);
+                        db.SaveChanges();
+                        currentBatch.Clear();
+                    }
+
+                    startRow++;
+                }
+
+                // Save remaining records in the last batch
+                if (currentBatch.Count > 0)
                 {
-                    errorMessages.Add($"Property: {validationError.PropertyName} Error: {validationError.ErrorMessage}");
+                    db.THONGTINHOes.AddRange(currentBatch);
+                    db.SaveChanges();
+                }
+
+                transaction.Commit();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                transaction.Rollback();
+                foreach (var validationErrors in ex.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        errorMessages.Add($"Property: {validationError.PropertyName} Error: {validationError.ErrorMessage}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+                errorMessages.Add($"Error: {ex.Message}");
+
+                if (ex.InnerException != null)
+                {
+                    errorMessages.Add($"Inner Exception: {ex.InnerException.Message}");
+
+                    if (ex.InnerException.InnerException != null)
+                    {
+                        errorMessages.Add($"Inner Inner Exception: {ex.InnerException.InnerException.Message}");
+                    }
                 }
             }
         }
     }
 
+
     private void ImportThanhVienTrongHo(ExcelWorksheet workSheet, int startRow, int startColumn, out int count, List<string> errorMessages)
     {
         count = 0;
         var thanhViens = new List<THANHVIENTRONGHO>();
-
-        // Danh sách các thuộc tính của THANHVIENTRONGHO
         var properties = typeof(THANHVIENTRONGHO).GetProperties();
         var propertyNames = properties.Select(p => p.Name).ToArray();
 
@@ -501,9 +588,48 @@ public class ImportController : Controller
                 var property = properties.FirstOrDefault(p => p.Name == propertyName);
                 if (property != null)
                 {
-                    // Chuyển đổi giá trị từ chuỗi sang kiểu dữ liệu của thuộc tính
-                    object convertedValue = Convert.ChangeType(cellValue, Nullable.GetUnderlyingType(property.PropertyType) ?? property.PropertyType);
-                    property.SetValue(thanhVien, convertedValue);
+                    try
+                    {
+                        object convertedValue = null;
+                        if (!string.IsNullOrEmpty(cellValue))
+                        {
+                            if (property.PropertyType == typeof(string))
+                            {
+                                convertedValue = cellValue;
+                            }
+                            else if (property.PropertyType == typeof(DateTime) || property.PropertyType == typeof(DateTime?))
+                            {
+                                if (double.TryParse(cellValue, out double oaDate))
+                                {
+                                    convertedValue = DateTime.FromOADate(oaDate);
+                                }
+                                else if (DateTime.TryParse(cellValue, out DateTime dateValue))
+                                {
+                                    convertedValue = dateValue;
+                                }
+                            }
+                            else if (property.PropertyType == typeof(decimal) || property.PropertyType == typeof(decimal?))
+                            {
+                                if (decimal.TryParse(cellValue, out decimal decimalValue))
+                                {
+                                    convertedValue = decimalValue;
+                                }
+                            }
+                            else if (property.PropertyType == typeof(int) || property.PropertyType == typeof(int?))
+                            {
+                                if (int.TryParse(cellValue, out int intValue))
+                                {
+                                    convertedValue = intValue;
+                                }
+                            }
+                        }
+
+                        property.SetValue(thanhVien, convertedValue);
+                    }
+                    catch (Exception ex)
+                    {
+                        errorMessages.Add($"Row {startRow}, Column {startColumn + i}: Error converting '{cellValue}' to {property.PropertyType}. Exception: {ex.Message}");
+                    }
                 }
             }
 
@@ -517,13 +643,30 @@ public class ImportController : Controller
             startRow++;
         }
 
-        // Thêm danh sách các thành viên vào cơ sở dữ liệu
-        using (var context = new Db_ThucTapEntities())
+        try
         {
-            context.THANHVIENTRONGHOes.AddRange(thanhViens);
-            context.SaveChanges();
+            using (var context = new Db_ThucTapEntities())
+            {
+                context.THANHVIENTRONGHOes.AddRange(thanhViens);
+                context.SaveChanges();
+            }
+        }
+        catch (DbEntityValidationException ex)
+        {
+            foreach (var validationErrors in ex.EntityValidationErrors)
+            {
+                foreach (var validationError in validationErrors.ValidationErrors)
+                {
+                    errorMessages.Add($"Property: {validationError.PropertyName} Error: {validationError.ErrorMessage}");
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessages.Add($"Error during batch insert: {ex.Message}");
         }
     }
+
 
     private void ImportThongTinTuVong(ExcelWorksheet workSheet, int startRow, int startColumn, out int count, List<string> errorMessages)
     {

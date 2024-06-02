@@ -42,7 +42,7 @@ namespace Import_file_Excel.Data
         public string KT14 { get; set; }
         public string NguoiXN { get; set; }
         public string NguoiTao { get; set; }
-        public System.TimeSpan NgayTao { get; set; }
+        public Nullable<System.DateTime> NgayTao { get; set; }
         public string PhienBan { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

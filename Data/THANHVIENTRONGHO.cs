@@ -14,6 +14,7 @@ namespace Import_file_Excel.Data
     
     public partial class THANHVIENTRONGHO
     {
+        public int MaTvienHo { get; set; }
         public string MaHo { get; set; }
         public string MaThanhVien { get; set; }
         public string STT { get; set; }
@@ -134,6 +135,7 @@ namespace Import_file_Excel.Data
         public string C61 { get; set; }
         public string C62 { get; set; }
         public string C63 { get; set; }
+        public Nullable<System.DateTime> NgayTao { get; set; }
     
         public virtual THONGTINHO THONGTINHO { get; set; }
     }
