@@ -175,7 +175,7 @@ warning 6002: The table/view 'Db_ThucTap.dbo.GhiNhan' does not have a primary ke
           </Key>
           <Property Name="MaHo" Type="char" MaxLength="15" Nullable="false" />
           <Property Name="MaXa" Type="char" MaxLength="6" Nullable="false" />
-          <Property Name="TenDB" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="TenDB" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="HoSo" Type="char" MaxLength="3" Nullable="false" />
           <Property Name="Nam" Type="char" MaxLength="4" Nullable="false" />
           <Property Name="HoTenChuHo" Type="nvarchar" MaxLength="150" Nullable="false" />
@@ -249,18 +249,6 @@ warning 6002: The table/view 'Db_ThucTap.dbo.GhiNhan' does not have a primary ke
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__THONGTINTU__MaHo__5070F446">
-          <End Role="THONGTINHO" Type="Self.THONGTINHO" Multiplicity="1" />
-          <End Role="THONGTINTUVONG" Type="Self.THONGTINTUVONG" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="THONGTINHO">
-              <PropertyRef Name="MaHo" />
-            </Principal>
-            <Dependent Role="THONGTINTUVONG">
-              <PropertyRef Name="MaHo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__TINH__MaVung__398D8EEE">
           <End Role="VUNG" Type="Self.VUNG" Multiplicity="0..1" />
           <End Role="TINH" Type="Self.TINH" Multiplicity="*" />
@@ -285,6 +273,18 @@ warning 6002: The table/view 'Db_ThucTap.dbo.GhiNhan' does not have a primary ke
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_HUYEN_TINH">
+          <End Role="TINH" Type="Self.TINH" Multiplicity="1" />
+          <End Role="HUYEN" Type="Self.HUYEN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TINH">
+              <PropertyRef Name="MaTinh" />
+            </Principal>
+            <Dependent Role="HUYEN">
+              <PropertyRef Name="MaTinh" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_THANHVIENTRONGHO_THONGTINHO">
           <End Role="THONGTINHO" Type="Self.THONGTINHO" Multiplicity="1" />
           <End Role="THANHVIENTRONGHO" Type="Self.THANHVIENTRONGHO" Multiplicity="*" />
@@ -293,6 +293,42 @@ warning 6002: The table/view 'Db_ThucTap.dbo.GhiNhan' does not have a primary ke
               <PropertyRef Name="MaHo" />
             </Principal>
             <Dependent Role="THANHVIENTRONGHO">
+              <PropertyRef Name="MaHo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_THONGTINHO_DIABAN">
+          <End Role="DIABAN" Type="Self.DIABAN" Multiplicity="1" />
+          <End Role="THONGTINHO" Type="Self.THONGTINHO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DIABAN">
+              <PropertyRef Name="TenDB" />
+            </Principal>
+            <Dependent Role="THONGTINHO">
+              <PropertyRef Name="TenDB" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_THONGTINHO_XA">
+          <End Role="XA" Type="Self.XA" Multiplicity="1" />
+          <End Role="THONGTINHO" Type="Self.THONGTINHO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="XA">
+              <PropertyRef Name="MaXa" />
+            </Principal>
+            <Dependent Role="THONGTINHO">
+              <PropertyRef Name="MaXa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_THONGTINTUVONG_THONGTINHO">
+          <End Role="THONGTINHO" Type="Self.THONGTINHO" Multiplicity="1" />
+          <End Role="THONGTINTUVONG" Type="Self.THONGTINTUVONG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="THONGTINHO">
+              <PropertyRef Name="MaHo" />
+            </Principal>
+            <Dependent Role="THONGTINTUVONG">
               <PropertyRef Name="MaHo" />
             </Dependent>
           </ReferentialConstraint>
@@ -318,10 +354,6 @@ warning 6002: The table/view 'Db_ThucTap.dbo.GhiNhan' does not have a primary ke
             <End Role="XA" EntitySet="XA" />
             <End Role="DIABAN" EntitySet="DIABAN" />
           </AssociationSet>
-          <AssociationSet Name="FK__THONGTINTU__MaHo__5070F446" Association="Self.FK__THONGTINTU__MaHo__5070F446">
-            <End Role="THONGTINHO" EntitySet="THONGTINHO" />
-            <End Role="THONGTINTUVONG" EntitySet="THONGTINTUVONG" />
-          </AssociationSet>
           <AssociationSet Name="FK__TINH__MaVung__398D8EEE" Association="Self.FK__TINH__MaVung__398D8EEE">
             <End Role="VUNG" EntitySet="VUNG" />
             <End Role="TINH" EntitySet="TINH" />
@@ -330,9 +362,25 @@ warning 6002: The table/view 'Db_ThucTap.dbo.GhiNhan' does not have a primary ke
             <End Role="HUYEN" EntitySet="HUYEN" />
             <End Role="XA" EntitySet="XA" />
           </AssociationSet>
+          <AssociationSet Name="FK_HUYEN_TINH" Association="Self.FK_HUYEN_TINH">
+            <End Role="TINH" EntitySet="TINH" />
+            <End Role="HUYEN" EntitySet="HUYEN" />
+          </AssociationSet>
           <AssociationSet Name="FK_THANHVIENTRONGHO_THONGTINHO" Association="Self.FK_THANHVIENTRONGHO_THONGTINHO">
             <End Role="THONGTINHO" EntitySet="THONGTINHO" />
             <End Role="THANHVIENTRONGHO" EntitySet="THANHVIENTRONGHO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_THONGTINHO_DIABAN" Association="Self.FK_THONGTINHO_DIABAN">
+            <End Role="DIABAN" EntitySet="DIABAN" />
+            <End Role="THONGTINHO" EntitySet="THONGTINHO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_THONGTINHO_XA" Association="Self.FK_THONGTINHO_XA">
+            <End Role="XA" EntitySet="XA" />
+            <End Role="THONGTINHO" EntitySet="THONGTINHO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_THONGTINTUVONG_THONGTINHO" Association="Self.FK_THONGTINTUVONG_THONGTINHO">
+            <End Role="THONGTINHO" EntitySet="THONGTINHO" />
+            <End Role="THONGTINTUVONG" EntitySet="THONGTINTUVONG" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -347,6 +395,7 @@ warning 6002: The table/view 'Db_ThucTap.dbo.GhiNhan' does not have a primary ke
           <Property Name="MaXa" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="TenDB" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="XA" Relationship="Self.FK__DIABAN__MaXa__44FF419A" FromRole="DIABAN" ToRole="XA" />
+          <NavigationProperty Name="THONGTINHOes" Relationship="Self.FK_THONGTINHO_DIABAN" FromRole="DIABAN" ToRole="THONGTINHO" />
         </EntityType>
         <EntityType Name="HUYEN">
           <Key>
@@ -356,6 +405,7 @@ warning 6002: The table/view 'Db_ThucTap.dbo.GhiNhan' does not have a primary ke
           <Property Name="MaTinh" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="TenHuyen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="XAs" Relationship="Self.FK__XA__MaHuyen__3F466844" FromRole="HUYEN" ToRole="XA" />
+          <NavigationProperty Name="TINH" Relationship="Self.FK_HUYEN_TINH" FromRole="HUYEN" ToRole="TINH" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -501,7 +551,7 @@ warning 6002: The table/view 'Db_ThucTap.dbo.GhiNhan' does not have a primary ke
           </Key>
           <Property Name="MaHo" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="MaXa" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="TenDB" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TenDB" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="HoSo" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="Nam" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="HoTenChuHo" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
@@ -522,8 +572,10 @@ warning 6002: The table/view 'Db_ThucTap.dbo.GhiNhan' does not have a primary ke
           <Property Name="NguoiTao" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="NgayTao" Type="DateTime" Precision="3" />
           <Property Name="PhienBan" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DIABAN" Relationship="Self.FK_THONGTINHO_DIABAN" FromRole="THONGTINHO" ToRole="DIABAN" />
           <NavigationProperty Name="THANHVIENTRONGHOes" Relationship="Self.FK_THANHVIENTRONGHO_THONGTINHO" FromRole="THONGTINHO" ToRole="THANHVIENTRONGHO" />
-          <NavigationProperty Name="THONGTINTUVONGs" Relationship="Self.FK__THONGTINTU__MaHo__5070F446" FromRole="THONGTINHO" ToRole="THONGTINTUVONG" />
+          <NavigationProperty Name="XA" Relationship="Self.FK_THONGTINHO_XA" FromRole="THONGTINHO" ToRole="XA" />
+          <NavigationProperty Name="THONGTINTUVONGs" Relationship="Self.FK_THONGTINTUVONG_THONGTINHO" FromRole="THONGTINHO" ToRole="THONGTINTUVONG" />
         </EntityType>
         <EntityType Name="THONGTINTUVONG">
           <Key>
@@ -541,7 +593,7 @@ warning 6002: The table/view 'Db_ThucTap.dbo.GhiNhan' does not have a primary ke
           <Property Name="NamSinh" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="Tuoi" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
           <Property Name="NguyenNhan" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="THONGTINHO" Relationship="Self.FK__THONGTINTU__MaHo__5070F446" FromRole="THONGTINTUVONG" ToRole="THONGTINHO" />
+          <NavigationProperty Name="THONGTINHO" Relationship="Self.FK_THONGTINTUVONG_THONGTINHO" FromRole="THONGTINTUVONG" ToRole="THONGTINHO" />
         </EntityType>
         <EntityType Name="TINH">
           <Key>
@@ -550,6 +602,7 @@ warning 6002: The table/view 'Db_ThucTap.dbo.GhiNhan' does not have a primary ke
           <Property Name="MaTinh" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="MaVung" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
           <Property Name="TenTinh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="HUYENs" Relationship="Self.FK_HUYEN_TINH" FromRole="TINH" ToRole="HUYEN" />
           <NavigationProperty Name="VUNG" Relationship="Self.FK__TINH__MaVung__398D8EEE" FromRole="TINH" ToRole="VUNG" />
         </EntityType>
         <EntityType Name="VUNG">
@@ -569,6 +622,7 @@ warning 6002: The table/view 'Db_ThucTap.dbo.GhiNhan' does not have a primary ke
           <Property Name="TenXa" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="DIABANs" Relationship="Self.FK__DIABAN__MaXa__44FF419A" FromRole="XA" ToRole="DIABAN" />
           <NavigationProperty Name="HUYEN" Relationship="Self.FK__XA__MaHuyen__3F466844" FromRole="XA" ToRole="HUYEN" />
+          <NavigationProperty Name="THONGTINHOes" Relationship="Self.FK_THONGTINHO_XA" FromRole="XA" ToRole="THONGTINHO" />
         </EntityType>
         <EntityType Name="GhiNhan">
           <Key>
@@ -592,6 +646,18 @@ warning 6002: The table/view 'Db_ThucTap.dbo.GhiNhan' does not have a primary ke
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_THONGTINHO_DIABAN">
+          <End Role="DIABAN" Type="Self.DIABAN" Multiplicity="1" />
+          <End Role="THONGTINHO" Type="Self.THONGTINHO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DIABAN">
+              <PropertyRef Name="TenDB" />
+            </Principal>
+            <Dependent Role="THONGTINHO">
+              <PropertyRef Name="TenDB" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__XA__MaHuyen__3F466844">
           <End Role="HUYEN" Type="Self.HUYEN" Multiplicity="0..1" />
           <End Role="XA" Type="Self.XA" Multiplicity="*" />
@@ -601,6 +667,18 @@ warning 6002: The table/view 'Db_ThucTap.dbo.GhiNhan' does not have a primary ke
             </Principal>
             <Dependent Role="XA">
               <PropertyRef Name="MaHuyen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HUYEN_TINH">
+          <End Role="TINH" Type="Self.TINH" Multiplicity="1" />
+          <End Role="HUYEN" Type="Self.HUYEN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TINH">
+              <PropertyRef Name="MaTinh" />
+            </Principal>
+            <Dependent Role="HUYEN">
+              <PropertyRef Name="MaTinh" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -616,7 +694,19 @@ warning 6002: The table/view 'Db_ThucTap.dbo.GhiNhan' does not have a primary ke
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__THONGTINTU__MaHo__5070F446">
+        <Association Name="FK_THONGTINHO_XA">
+          <End Role="XA" Type="Self.XA" Multiplicity="1" />
+          <End Role="THONGTINHO" Type="Self.THONGTINHO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="XA">
+              <PropertyRef Name="MaXa" />
+            </Principal>
+            <Dependent Role="THONGTINHO">
+              <PropertyRef Name="MaXa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_THONGTINTUVONG_THONGTINHO">
           <End Role="THONGTINHO" Type="Self.THONGTINHO" Multiplicity="1" />
           <End Role="THONGTINTUVONG" Type="Self.THONGTINTUVONG" Multiplicity="*" />
           <ReferentialConstraint>
@@ -655,15 +745,27 @@ warning 6002: The table/view 'Db_ThucTap.dbo.GhiNhan' does not have a primary ke
             <End Role="XA" EntitySet="XAs" />
             <End Role="DIABAN" EntitySet="DIABANs" />
           </AssociationSet>
+          <AssociationSet Name="FK_THONGTINHO_DIABAN" Association="Self.FK_THONGTINHO_DIABAN">
+            <End Role="DIABAN" EntitySet="DIABANs" />
+            <End Role="THONGTINHO" EntitySet="THONGTINHOes" />
+          </AssociationSet>
           <AssociationSet Name="FK__XA__MaHuyen__3F466844" Association="Self.FK__XA__MaHuyen__3F466844">
             <End Role="HUYEN" EntitySet="HUYENs" />
             <End Role="XA" EntitySet="XAs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HUYEN_TINH" Association="Self.FK_HUYEN_TINH">
+            <End Role="TINH" EntitySet="TINHs" />
+            <End Role="HUYEN" EntitySet="HUYENs" />
           </AssociationSet>
           <AssociationSet Name="FK_THANHVIENTRONGHO_THONGTINHO" Association="Self.FK_THANHVIENTRONGHO_THONGTINHO">
             <End Role="THONGTINHO" EntitySet="THONGTINHOes" />
             <End Role="THANHVIENTRONGHO" EntitySet="THANHVIENTRONGHOes" />
           </AssociationSet>
-          <AssociationSet Name="FK__THONGTINTU__MaHo__5070F446" Association="Self.FK__THONGTINTU__MaHo__5070F446">
+          <AssociationSet Name="FK_THONGTINHO_XA" Association="Self.FK_THONGTINHO_XA">
+            <End Role="XA" EntitySet="XAs" />
+            <End Role="THONGTINHO" EntitySet="THONGTINHOes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_THONGTINTUVONG_THONGTINHO" Association="Self.FK_THONGTINTUVONG_THONGTINHO">
             <End Role="THONGTINHO" EntitySet="THONGTINHOes" />
             <End Role="THONGTINTUVONG" EntitySet="THONGTINTUVONGs" />
           </AssociationSet>

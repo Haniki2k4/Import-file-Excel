@@ -26,5 +26,6 @@ namespace Import_file_Excel.Data
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<XA> XAs { get; set; }
+        public virtual TINH TINH { get; set; }
     }
 }

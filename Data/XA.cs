@@ -18,6 +18,7 @@ namespace Import_file_Excel.Data
         public XA()
         {
             this.DIABANs = new HashSet<DIABAN>();
+            this.THONGTINHOes = new HashSet<THONGTINHO>();
         }
     
         public string MaXa { get; set; }
@@ -27,5 +28,7 @@ namespace Import_file_Excel.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DIABAN> DIABANs { get; set; }
         public virtual HUYEN HUYEN { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<THONGTINHO> THONGTINHOes { get; set; }
     }
 }

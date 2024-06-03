@@ -14,6 +14,7 @@ namespace Import_file_Excel.Data
     
     public partial class THONGTINTUVONG
     {
+        public int MaTTinTuVong { get; set; }
         public string MaHo { get; set; }
         public string MaTVong { get; set; }
         public string STTTV { get; set; }

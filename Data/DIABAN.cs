@@ -14,9 +14,17 @@ namespace Import_file_Excel.Data
     
     public partial class DIABAN
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public DIABAN()
+        {
+            this.THONGTINHOes = new HashSet<THONGTINHO>();
+        }
+    
         public string MaXa { get; set; }
         public string TenDB { get; set; }
     
         public virtual XA XA { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<THONGTINHO> THONGTINHOes { get; set; }
     }
 }

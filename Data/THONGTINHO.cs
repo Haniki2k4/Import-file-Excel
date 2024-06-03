@@ -45,8 +45,10 @@ namespace Import_file_Excel.Data
         public Nullable<System.DateTime> NgayTao { get; set; }
         public string PhienBan { get; set; }
     
+        public virtual DIABAN DIABAN { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<THANHVIENTRONGHO> THANHVIENTRONGHOes { get; set; }
+        public virtual XA XA { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<THONGTINTUVONG> THONGTINTUVONGs { get; set; }
     }
