@@ -34,5 +34,6 @@ namespace Import_file_Excel.Data
         public virtual DbSet<TINH> TINHs { get; set; }
         public virtual DbSet<VUNG> VUNGs { get; set; }
         public virtual DbSet<XA> XAs { get; set; }
+        public virtual DbSet<GhiNhan> GhiNhans { get; set; }
     }
 }

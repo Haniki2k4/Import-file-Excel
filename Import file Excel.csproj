@@ -161,6 +161,9 @@
     <Compile Include="Data\DIABAN.cs">
       <DependentUpon>Db_ThucTap.tt</DependentUpon>
     </Compile>
+    <Compile Include="Data\GhiNhan.cs">
+      <DependentUpon>Db_ThucTap.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\HUYEN.cs">
       <DependentUpon>Db_ThucTap.tt</DependentUpon>
     </Compile>

@@ -12,6 +12,18 @@
           <Property Name="MaXa" Type="char" MaxLength="6" Nullable="false" />
           <Property Name="TenDB" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Db_ThucTap.dbo.GhiNhan' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="GhiNhan">
+          <Key>
+            <PropertyRef Name="ThongTin" />
+            <PropertyRef Name="Ngay" />
+            <PropertyRef Name="NguoiDung" />
+          </Key>
+          <Property Name="ThongTin" Type="xml" Nullable="false" />
+          <Property Name="Ngay" Type="datetime" Nullable="false" />
+          <Property Name="NguoiDung" Type="char" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="HUYEN">
           <Key>
             <PropertyRef Name="MaHuyen" />
@@ -187,8 +199,9 @@
         </EntityType>
         <EntityType Name="THONGTINTUVONG">
           <Key>
-            <PropertyRef Name="MaTVong" />
+            <PropertyRef Name="MaTTinTuVong" />
           </Key>
+          <Property Name="MaTTinTuVong" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MaHo" Type="char" MaxLength="15" Nullable="false" />
           <Property Name="MaTVong" Type="char" MaxLength="2" Nullable="false" />
           <Property Name="STTTV" Type="char" MaxLength="2" Nullable="false" />
@@ -294,6 +307,13 @@
           <EntitySet Name="TINH" EntityType="Self.TINH" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VUNG" EntityType="Self.VUNG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="XA" EntityType="Self.XA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GhiNhan" EntityType="Self.GhiNhan" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [GhiNhan].[ThongTin] AS [ThongTin], 
+    [GhiNhan].[Ngay] AS [Ngay], 
+    [GhiNhan].[NguoiDung] AS [NguoiDung]
+    FROM [dbo].[GhiNhan] AS [GhiNhan]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK__DIABAN__MaXa__44FF419A" Association="Self.FK__DIABAN__MaXa__44FF419A">
             <End Role="XA" EntitySet="XA" />
             <End Role="DIABAN" EntitySet="DIABAN" />
@@ -507,8 +527,9 @@
         </EntityType>
         <EntityType Name="THONGTINTUVONG">
           <Key>
-            <PropertyRef Name="MaTVong" />
+            <PropertyRef Name="MaTTinTuVong" />
           </Key>
+          <Property Name="MaTTinTuVong" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MaHo" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="MaTVong" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="STTTV" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
@@ -548,6 +569,16 @@
           <Property Name="TenXa" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="DIABANs" Relationship="Self.FK__DIABAN__MaXa__44FF419A" FromRole="XA" ToRole="DIABAN" />
           <NavigationProperty Name="HUYEN" Relationship="Self.FK__XA__MaHuyen__3F466844" FromRole="XA" ToRole="HUYEN" />
+        </EntityType>
+        <EntityType Name="GhiNhan">
+          <Key>
+            <PropertyRef Name="ThongTin" />
+            <PropertyRef Name="Ngay" />
+            <PropertyRef Name="NguoiDung" />
+          </Key>
+          <Property Name="ThongTin" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Ngay" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="NguoiDung" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
         </EntityType>
         <Association Name="FK__DIABAN__MaXa__44FF419A">
           <End Role="XA" Type="Self.XA" Multiplicity="1" />
@@ -619,6 +650,7 @@
           <EntitySet Name="TINHs" EntityType="Self.TINH" />
           <EntitySet Name="VUNGs" EntityType="Self.VUNG" />
           <EntitySet Name="XAs" EntityType="Self.XA" />
+          <EntitySet Name="GhiNhans" EntityType="Self.GhiNhan" />
           <AssociationSet Name="FK__DIABAN__MaXa__44FF419A" Association="Self.FK__DIABAN__MaXa__44FF419A">
             <End Role="XA" EntitySet="XAs" />
             <End Role="DIABAN" EntitySet="DIABANs" />
@@ -834,6 +866,7 @@
           <EntitySetMapping Name="THONGTINTUVONGs">
             <EntityTypeMapping TypeName="Db_ThucTapModel.THONGTINTUVONG">
               <MappingFragment StoreEntitySet="THONGTINTUVONG">
+                <ScalarProperty Name="MaTTinTuVong" ColumnName="MaTTinTuVong" />
                 <ScalarProperty Name="MaHo" ColumnName="MaHo" />
                 <ScalarProperty Name="MaTVong" ColumnName="MaTVong" />
                 <ScalarProperty Name="STTTV" ColumnName="STTTV" />
@@ -871,6 +904,15 @@
                 <ScalarProperty Name="MaXa" ColumnName="MaXa" />
                 <ScalarProperty Name="MaHuyen" ColumnName="MaHuyen" />
                 <ScalarProperty Name="TenXa" ColumnName="TenXa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GhiNhans">
+            <EntityTypeMapping TypeName="Db_ThucTapModel.GhiNhan">
+              <MappingFragment StoreEntitySet="GhiNhan">
+                <ScalarProperty Name="ThongTin" ColumnName="ThongTin" />
+                <ScalarProperty Name="Ngay" ColumnName="Ngay" />
+                <ScalarProperty Name="NguoiDung" ColumnName="NguoiDung" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
