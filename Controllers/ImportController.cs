@@ -83,7 +83,6 @@ public class ImportController : Controller
                 int startColumn = 1;
                 int startRow = 2;
                 ExcelWorksheet workSheet = package.Workbook.Worksheets[0];
-                object data = null;
 
                 switch (dataType)
                 {

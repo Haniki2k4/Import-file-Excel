@@ -97,7 +97,7 @@ warning 6002: The table/view 'Db_ThucTap.dbo.GhiNhan' does not have a primary ke
           <Property Name="C21D" Type="char" MaxLength="2" />
           <Property Name="C21E" Type="char" MaxLength="2" />
           <Property Name="C21F" Type="char" MaxLength="2" />
-          <Property Name="C21FK" Type="nvarchar" MaxLength="200" />
+          <Property Name="C21FK" Type="nvarchar" MaxLength="100" />
           <Property Name="C22T" Type="char" MaxLength="2" />
           <Property Name="C22N" Type="char" MaxLength="4" />
           <Property Name="C23" Type="char" MaxLength="2" />
@@ -179,7 +179,7 @@ warning 6002: The table/view 'Db_ThucTap.dbo.GhiNhan' does not have a primary ke
           <Property Name="HoSo" Type="char" MaxLength="3" Nullable="false" />
           <Property Name="Nam" Type="char" MaxLength="4" Nullable="false" />
           <Property Name="HoTenChuHo" Type="nvarchar" MaxLength="150" Nullable="false" />
-          <Property Name="DiaChi" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="DiaChi" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="MaNV" Type="char" MaxLength="10" />
           <Property Name="NgayKThuc" Type="datetime" />
           <Property Name="NgayPVan" Type="datetime" />
@@ -472,7 +472,7 @@ warning 6002: The table/view 'Db_ThucTap.dbo.GhiNhan' does not have a primary ke
           <Property Name="C21D" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
           <Property Name="C21E" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
           <Property Name="C21F" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
-          <Property Name="C21FK" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="C21FK" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="C22T" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
           <Property Name="C22N" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
           <Property Name="C23" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
@@ -555,7 +555,7 @@ warning 6002: The table/view 'Db_ThucTap.dbo.GhiNhan' does not have a primary ke
           <Property Name="HoSo" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="Nam" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="HoTenChuHo" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="DiaChi" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DiaChi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="MaNV" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
           <Property Name="NgayKThuc" Type="DateTime" Precision="3" />
           <Property Name="NgayPVan" Type="DateTime" Precision="3" />
